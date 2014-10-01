@@ -1,4 +1,4 @@
 AVLtree
 =======
 
-One more implementation of AVl tree for a school project
+One more implementation of an AVL tree for a school project.
