@@ -109,13 +109,25 @@ class Node<T extends Comparable> {
 	 * Parcours infixé
 	 */
 	public String toString(){
-		if(isLeaf()){
-			return tag.toString();
+		if (!(isLeaf())) {
+			
+			return leftSon.toString() + ',' + tag.toString() +',' + rightSon.toString();
+			
 		}
-		else{
-			/**
-			 * TODO finish this shit ! And translate code
-			 */
+		else {
+			
+			String toReturn = "";
+			
+			if(null != leftSon){
+				toReturn += leftSon.toString();
+			}
+			toReturn += tag.toString();
+			
+			if(null != rightSon){
+				toReturn += rightSon.toString();
+			}
+			
+			return toReturn;
 		}
 	}
 	
