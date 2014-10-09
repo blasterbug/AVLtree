@@ -180,5 +180,45 @@ class Node<T extends Comparable> {
 			}
 		}
 	}
+	
+	/**
+	 * méthode suppirmant l'élément passé en paramètre du noeud
+	 * @throws NoSonException 
+	 */
+	public void delete(T element) throws NoSonException {
+		//if the node is not a leaf
+		if(! isLeaf()) {
+			//if the element to delete is in the left son
+			if(0 < tag.compareTo(element)) {
+				//if the element to suppress is the left son of the node
+				if(leftSon.getTag().compareTo(element) == 0) {
+					//if the left son of the left son is not a leaf
+					if(! leftSon.getLeftSon().isLeaf()) {
+						//we replace the left son of the node by the left son of his left son
+						leftSon = leftSon.getLeftSon();
+					} else {
+						//we replace the left son of the node by the right son of his left son
+						leftSon = leftSon.getRightSon();
+					}
+				} else { //else, we call recursively the method in the left son
+					leftSon.delete(element);
+				}
+			} else if(tag.compareTo(element) > 1) { //else, the element is in the right son
+				//if the element to suppress is the left son of the node
+				if(rightSon.getTag().compareTo(element) == 0) {
+					//if the left son of the right son is not a leaf
+					if(! rightSon.getLeftSon().isLeaf()) {
+						//we replace the left son of the node by the left son of his right son
+						rightSon = rightSon.getLeftSon();
+					} else {
+						//we replace the left son of the node by the right son of his right son
+						rightSon = rightSon.getRightSon();
+					}
+				} else { //else, we call recursively the method in the right son
+					rightSon.delete(element);
+				}
+			}
+		}
+	}
 
 }
