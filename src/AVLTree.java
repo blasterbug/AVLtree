@@ -189,9 +189,9 @@ class Node<T extends Comparable> {
 		//if the node is not a leaf
 		if(! isLeaf()) {
 			//if the element to delete is in the left son
-			if(0 < tag.compareTo(element)) {
+			if( 0 < tag.compareTo(element) ) {
 				//if the element to suppress is the left son of the node
-				if(leftSon.getTag().compareTo(element) == 0) {
+				if( leftSon.getTag().compareTo(element) == 0) {
 					//if the left son of the left son is not a leaf
 					if(! leftSon.getLeftSon().isLeaf()) {
 						//we replace the left son of the node by the left son of his left son
@@ -203,11 +203,11 @@ class Node<T extends Comparable> {
 				} else { //else, we call recursively the method in the left son
 					leftSon.delete(element);
 				}
-			} else if(tag.compareTo(element) > 1) { //else, the element is in the right son
+			} else if( tag.compareTo(element) < 0 ) { //else, the element is in the right son
 				//if the element to suppress is the left son of the node
-				if(rightSon.getTag().compareTo(element) == 0) {
+				if( rightSon.getTag().compareTo(element) == 0 ) {
 					//if the left son of the right son is not a leaf
-					if(! rightSon.getLeftSon().isLeaf()) {
+					if( ! rightSon.getLeftSon().isLeaf() ) {
 						//we replace the left son of the node by the left son of his right son
 						rightSon = rightSon.getLeftSon();
 					} else {
