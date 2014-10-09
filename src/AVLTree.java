@@ -27,12 +27,14 @@ class Node<T extends Comparable> {
 	
 	private Node<T> leftSon, rightSon;
 	private T tag;
+	private int height;
 	
 	/**
 	 * Constructeur simple, i.e. pour une feuille
 	 * @param tag  Étiquette du Node
 	 */
 	public Node(T tag){
+		this.height = 0;
 		this.tag = tag;
 		this.leftSon = null;
 		this.rightSon = null;
@@ -48,6 +50,18 @@ class Node<T extends Comparable> {
 		this(tag);
 		this.leftSon = leftSon;
 		this.rightSon = rightSon;
+		updateHeight();
+	}
+	
+	/**
+	 * Update node height
+	 */
+	private void updateHeight(){
+		if(this.leftSon.height < this.rightSon.height){
+			this.height = this.rightSon.height;
+		} else {
+			this.height = this.leftSon.height;
+		}
 	}
 	
 	/**
@@ -72,6 +86,7 @@ class Node<T extends Comparable> {
 	 */
 	public void setLeftSon(Node<T> nouveauleftSon){
 		this.leftSon = nouveauleftSon;
+		updateHeight();
 	}
 	
 	/**
@@ -80,6 +95,7 @@ class Node<T extends Comparable> {
 	 */
 	public void setRightSon(Node<T> nouveaurightSon){
 		this.leftSon = nouveaurightSon;
+		updateHeight();
 	}
 	
 	/**
@@ -136,6 +152,8 @@ class Node<T extends Comparable> {
 	 * @param element Élement à add
 	 */
 	public void add(T element){
+		// update node height
+		++height;
 		// if element is 'less' than tag
 		if(0 < tag.compareTo(element)){
 			// then add element on the left
@@ -143,6 +161,7 @@ class Node<T extends Comparable> {
 			if(isLeaf()) {
 				// then add it
 				leftSon = new Node<T>(element);
+				// update node height
 			} else {
 				// else recursive call to the son
 				leftSon.add(element);
