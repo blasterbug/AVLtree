@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * Classe qui représente un arbre binaire de recherche
  *@author Benjamin Sientzoff
@@ -159,4 +161,5 @@ class Node<T extends Comparable> {
 			}
 		}
 	}
+
 }
