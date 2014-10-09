@@ -59,7 +59,7 @@ class Node<T extends Comparable> {
 	 * Update node height
 	 */
 	private void updateHeight(){
-		if(this.leftSon.height < this.rightSon.height){
+		if( this.leftSon.height < this.rightSon.height ){
 			this.height = this.rightSon.height;
 		} else {
 			this.height = this.leftSon.height;
@@ -79,7 +79,7 @@ class Node<T extends Comparable> {
 	 * @return retourne vrai si pas de Son, sinon faux
 	 */
 	public boolean isLeaf(){
-		return (null == leftSon) && (null == rightSon);
+		return ( null == leftSon ) && ( null == rightSon );
 	}
 	
 	/**
@@ -106,7 +106,7 @@ class Node<T extends Comparable> {
 	 * @throws NoSonException Exception si pas de Son right
 	 */
 	public Node<T> getRightSon() throws NoSonException{
-		if(null == rightSon)
+		if( null == rightSon )
 			throw new NoSonException("Le Node n'a pas de Son right!");
 		return rightSon;
 	}
@@ -117,7 +117,7 @@ class Node<T extends Comparable> {
 	 * @throws NoSonException Exception si pas de Son left
 	 */
 	public Node<T> getLeftSon() throws NoSonException{
-		if(null == leftSon)
+		if( null == leftSon )
 			throw new NoSonException("Le Node n'a pas de Son left!");
 		return leftSon;
 	}
@@ -127,7 +127,7 @@ class Node<T extends Comparable> {
 	 * Parcours infixé
 	 */
 	public String toString(){
-		if (!(isLeaf())) {
+		if ( !( isLeaf() ) ) {
 			
 			return leftSon.toString() + ',' + tag.toString() +',' + rightSon.toString();
 			
@@ -136,12 +136,12 @@ class Node<T extends Comparable> {
 			
 			String toReturn = "";
 			
-			if(null != leftSon){
+			if( null != leftSon ){
 				toReturn += leftSon.toString();
 			}
 			toReturn += tag.toString();
 			
-			if(null != rightSon){
+			if( null != rightSon ){
 				toReturn += rightSon.toString();
 			}
 			
@@ -157,10 +157,10 @@ class Node<T extends Comparable> {
 		// update node height
 		++height;
 		// if element is 'less' than tag
-		if(0 < tag.compareTo(element)){
+		if( 0 < tag.compareTo(element) ){
 			// then add element on the left
 			// if it's a leaf
-			if(isLeaf()) {
+			if( isLeaf() ) {
 				// then add it
 				leftSon = new Node<T>(element);
 				// update node height
@@ -171,7 +171,7 @@ class Node<T extends Comparable> {
 		} else {
 			// else add element on the right
 			// if it's a leaf
-			if(isLeaf()) {
+			if( isLeaf() ) {
 				// then add it
 				rightSon = new Node<T>(element);
 			} else {
@@ -182,7 +182,7 @@ class Node<T extends Comparable> {
 	}
 	
 	/**
-	 * méthode suppirmant l'élément passé en paramètre du noeud
+	 * méthode supprimant l'élément passé en paramètre du noeud
 	 * @throws NoSonException 
 	 */
 	public void delete(T element) throws NoSonException {
