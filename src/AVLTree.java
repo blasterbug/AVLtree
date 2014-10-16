@@ -1,7 +1,9 @@
 /**
- * Classe qui représente un arbre binaire de recherche
- *@author Benjamin Sientzoff
- *@author Thomas Minier
+ * AVL tree (Georgy Adelson-Velsky and Landis' tree, 
+ * named after the inventors) is a self-balancing 
+ * binary search tree.
+ * 
+ *@author Benjamin Sientzoff, Thomas Minier
  *@version 0.1 
  */
 
@@ -13,15 +15,26 @@ public class AVLTree<T extends Comparable> {
 		this.root = new Node<T>(root);
 	}
 	
+	public AVLTree(){
+		this.root = null;
+	}
+	
 	public void add(T element){
-		root.add(element);
+		if(null == root){
+			root = new Node<T>(element);
+		} else {
+			root.add(element);
+		}
+	}
+	
+	public String toString(){
+		return root.toString();
 	}
 }
 
 /**
- * 
- * @author Benjamin Sientzoff
- * @author Thomas Minier
+ * Node in a aVL tree
+ * @author Benjamin Sientzoff, Thomas Minier
  * Classe qui définit ce qu'est le Node d'une arbre binaire de recherche
  * @param <T extends {@link Comparable}> : Type des étiquettes du Node, doit implémenter l'interface Comparable !
  */
@@ -127,26 +140,19 @@ class Node<T extends Comparable> {
 	 * Parcours infixé
 	 */
 	public String toString(){
-		if ( !( isLeaf() ) ) {
-			
-			return leftSon.toString() + ',' + tag.toString() +',' + rightSon.toString();
-			
-		}
-		else {
-			
+		
 			String toReturn = "";
 			
 			if( null != leftSon ){
 				toReturn += leftSon.toString();
 			}
-			toReturn += tag.toString();
+			
+			toReturn += "," +tag.toString()+ "(" + height + ")";
 			
 			if( null != rightSon ){
 				toReturn += rightSon.toString();
 			}
-			
 			return toReturn;
-		}
 	}
 	
 	/**
@@ -159,20 +165,19 @@ class Node<T extends Comparable> {
 		// if element is 'less' than tag
 		if( 0 < tag.compareTo(element) ){
 			// then add element on the left
-			// if it's a leaf
-			if( isLeaf() ) {
-				// then add it
+			// if there is not left son
+			if( null == leftSon ) {
+				// then create it
 				leftSon = new Node<T>(element);
-				// update node height
 			} else {
 				// else recursive call to the son
 				leftSon.add(element);
 			}
 		} else {
 			// else add element on the right
-			// if it's a leaf
-			if( isLeaf() ) {
-				// then add it
+			// if no right son
+			if( null == rightSon ) {
+				// then create it
 				rightSon = new Node<T>(element);
 			} else {
 				// else recursive call to the son
