@@ -200,7 +200,7 @@ class Node<T extends Comparable> {
 	 * @param nodeA L'arbre sur lequel effectuer l'équlibrage
 	 * @return La racine du nouvel arbre formé après équilibrage
 	 */
-	private Node<T> balance(Node<T> nodeA) {
+	private Node<T> equilibrer(Node<T> nodeA) {
 		// If the balance == 2, then the tree is unbalanced to the right
 		if(nodeA.balance == 2) {
 			if(nodeA.rightSon.balance >= 0) {
@@ -223,29 +223,29 @@ class Node<T extends Comparable> {
 	
 	/**
 	 * Méthode qui effectue une rotation gauche sur un arbre, puis retourne la racine du nouvel arbre
-	 * @param nodeA Arbre sur lequel effectuer la rotation
+	 * @param nodeA L'arbre sur lequel effectuer la rotation
 	 * @return La racine de l'arbre après avec la rotation gauche
 	 */
 	private Node<T> leftRotation(Node<T> nodeA) {
 		int a, b;
 		
 		Node<T> nodeB = nodeA.rightSon;
-		a = nodeA.height;
-		b = nodeB.height;
+		a = nodeA.balance;
+		b = nodeB.balance;
 		// Left rotation
 		nodeA.rightSon = nodeB.leftSon;
 		nodeB.leftSon = nodeA;
-		// Update the height of the new tree
-		nodeA.height = a - Math.max(b,0) - 1;
-		nodeB.height = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		// Update the balance of the new tree
+		nodeA.balance = a - Math.max(b,0) - 1;
+		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
 		return nodeB;
 		
 	}
 	
 	/**
 	 * Méthode qui effectue une double rotation gauche sur un arbre, puis retourne la racine du nouvel arbre
-	 * @param nodeA arbre sur lequel effectuer la double rotation
-	 * @param La racine de l'arbre formé après la double rotation gauche
+	 * @param nodeA L'arbre sur lequel effectuer la double rotation
+	 * @return La racine de l'arbre formé après la double rotation gauche
 	 */
 	private Node<T> doubleLeftRotation(Node<T> nodeA) {
 		nodeA.rightSon = this.leftRotation(nodeA.rightSon);
@@ -254,29 +254,29 @@ class Node<T extends Comparable> {
 	
 	/**
 	 * Méthode qui effectue une rotation droite sur un arbre, puis retourne la racine du nouvel arbre
-	 * @param nodeA Arbre sur lequel effectuer la rotation
+	 * @param nodeA L'arbre sur lequel effectuer la rotation
 	 * @return La racine de l'arbre formé après la rotation droite
 	 */
 	private Node<T> rightRotation(Node<T> nodeA) {
 		int a, b;
 		
 		Node<T> nodeB = nodeA.leftSon;
-		a = nodeA.height;
-		b = nodeB.height;
-		// Left rotation
+		a = nodeA.balance;
+		b = nodeB.balance;
+		// Right rotation
 		nodeA.leftSon = nodeB.rightSon;
 		nodeB.rightSon = nodeA;
-		// Update the height of the new tree
-		nodeA.height = a - Math.max(b,0) - 1;
-		nodeB.height = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		// Update the balance of the new tree
+		nodeA.balance = a - Math.max(b,0) - 1;
+		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
 		return nodeB;
 		
 	}
 	
 	/**
 	 * Méthode qui effectue une double rotation droite sur un arbre, puis retourne la racine du nouvel arbre
-	 * @param nodeA arbre sur lequel effectuer la double rotation
-	 * @param La racine de l'arbre formé après la double rotation droite
+	 * @param nodeA L'arbre sur lequel effectuer la double rotation
+	 * @return La racine de l'arbre formé après la double rotation droite
 	 */
 	private Node<T> doubleRightRotation(Node<T> nodeA) {
 		nodeA.leftSon = this.rightRotation(nodeA.leftSon);
