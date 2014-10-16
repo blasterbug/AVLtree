@@ -35,21 +35,20 @@ public class AVLTree<T extends Comparable> {
 /**
  * Node in a aVL tree
  * @author Benjamin Sientzoff, Thomas Minier
- * Classe qui définit ce qu'est le Node d'une arbre binaire de recherche
  * @param <T extends {@link Comparable}> : Type des étiquettes du Node, doit implémenter l'interface Comparable !
  */
 class Node<T extends Comparable> {
 	
 	private Node<T> leftSon, rightSon;
 	private T tag;
-	private int height;
+	private int balance;
 	
 	/**
 	 * Constructeur simple, i.e. pour une feuille
 	 * @param tag  Étiquette du Node
 	 */
 	public Node(T tag){
-		this.height = 0;
+		this.balance = 0;
 		this.tag = tag;
 		this.leftSon = null;
 		this.rightSon = null;
@@ -65,17 +64,31 @@ class Node<T extends Comparable> {
 		this(tag);
 		this.leftSon = leftSon;
 		this.rightSon = rightSon;
-		updateHeight();
 	}
 	
 	/**
-	 * Update node height
+	 * What is a node height ?
 	 */
-	private void updateHeight(){
-		if( this.leftSon.height < this.rightSon.height ){
-			this.height = this.rightSon.height;
-		} else {
-			this.height = this.leftSon.height;
+	private int computeHeight(){
+		if(null == leftSon){
+			if(null == rightSon){
+				// if node, height is 0
+				return 0;
+			}
+			else{
+				// height is right son height plus 1 (no left son)
+				return 1 + rightSon.computeHeight();
+			}
+		}
+		else {
+			if(null == rightSon){
+				// no right son, height is 1 plus 
+				return 1 + leftSon.computeHeight();
+			}
+			else{
+				// if two sons, height is sons maximum height
+				return Math.max(leftSon.computeHeight(), rightSon.computeHeight());
+			}
 		}
 	}
 	
@@ -101,7 +114,6 @@ class Node<T extends Comparable> {
 	 */
 	public void setLeftSon(Node<T> nouveauleftSon){
 		this.leftSon = nouveauleftSon;
-		updateHeight();
 	}
 	
 	/**
@@ -110,7 +122,6 @@ class Node<T extends Comparable> {
 	 */
 	public void setRightSon(Node<T> nouveaurightSon){
 		this.leftSon = nouveaurightSon;
-		updateHeight();
 	}
 	
 	/**
@@ -147,7 +158,7 @@ class Node<T extends Comparable> {
 				toReturn += leftSon.toString();
 			}
 			
-			toReturn += "," +tag.toString()+ "(" + height + ")";
+			toReturn += "," +tag.toString()+ "(" + computeHeight() + ")";
 			
 			if( null != rightSon ){
 				toReturn += rightSon.toString();
@@ -160,8 +171,6 @@ class Node<T extends Comparable> {
 	 * @param element Élement à add
 	 */
 	public void add(T element){
-		// update node height
-		++height;
 		// if element is 'less' than tag
 		if( 0 < tag.compareTo(element) ){
 			// then add element on the left
