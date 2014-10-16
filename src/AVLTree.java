@@ -1,8 +1,7 @@
-import java.util.NoSuchElementException;
-
 /**
  * Classe qui représente un arbre binaire de recherche
  *@author Benjamin Sientzoff
+ *@author Thomas Minier
  *@version 0.1 
  */
 
@@ -22,6 +21,7 @@ public class AVLTree<T extends Comparable> {
 /**
  * 
  * @author Benjamin Sientzoff
+ * @author Thomas Minier
  * Classe qui définit ce qu'est le Node d'une arbre binaire de recherche
  * @param <T extends {@link Comparable}> : Type des étiquettes du Node, doit implémenter l'interface Comparable !
  */
@@ -177,46 +177,6 @@ class Node<T extends Comparable> {
 			} else {
 				// else recursive call to the son
 				rightSon.add(element);
-			}
-		}
-	}
-	
-	/**
-	 * méthode supprimant l'élément passé en paramètre du noeud
-	 * @throws NoSonException 
-	 */
-	public void delete(T element) throws NoSonException {
-		//if the node is not a leaf
-		if(! isLeaf()) {
-			//if the element to delete is in the left son
-			if( 0 < tag.compareTo(element) ) {
-				//if the element to suppress is the left son of the node
-				if( leftSon.getTag().compareTo(element) == 0) {
-					//if the left son of the left son is not a leaf
-					if(! leftSon.getLeftSon().isLeaf()) {
-						//we replace the left son of the node by the left son of his left son
-						leftSon = leftSon.getLeftSon();
-					} else {
-						//we replace the left son of the node by the right son of his left son
-						leftSon = leftSon.getRightSon();
-					}
-				} else { //else, we call recursively the method in the left son
-					leftSon.delete(element);
-				}
-			} else if( tag.compareTo(element) < 0 ) { //else, the element is in the right son
-				//if the element to suppress is the left son of the node
-				if( rightSon.getTag().compareTo(element) == 0 ) {
-					//if the left son of the right son is not a leaf
-					if( ! rightSon.getLeftSon().isLeaf() ) {
-						//we replace the left son of the node by the left son of his right son
-						rightSon = rightSon.getLeftSon();
-					} else {
-						//we replace the left son of the node by the right son of his right son
-						rightSon = rightSon.getRightSon();
-					}
-				} else { //else, we call recursively the method in the right son
-					rightSon.delete(element);
-				}
 			}
 		}
 	}
