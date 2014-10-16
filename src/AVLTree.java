@@ -180,5 +180,67 @@ class Node<T extends Comparable> {
 			}
 		}
 	}
+	
+	/**
+	 * Méthode qui effectue une rotation gauche sur un arbre, puis retourne la racine du nouvel arbre
+	 * @param nodeA Arbre sur lequel effectuer la rotation
+	 * @return La racine de l'arbre après avec la rotation gauche
+	 */
+	private Node<T> leftRotation(Node<T> nodeA) {
+		int a, b;
+		
+		Node<T> nodeB = nodeA.rightSon;
+		a = nodeA.height;
+		b = nodeB.height;
+		// Left rotation
+		nodeA.rightSon = nodeB.leftSon;
+		nodeB.leftSon = nodeA;
+		// Update the height of the new tree
+		nodeA.height = a - Math.max(b,0) - 1;
+		nodeB.height = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeB;
+		
+	}
+	
+	/**
+	 * Méthode qui effectue une double rotation gauche sur un arbre, puis retourne la racine du nouvel arbre
+	 * @param nodeA arbre sur lequel effectuer la double rotation
+	 * @param La racine de l'arbre formé après la double rotation gauche
+	 */
+	private Node<T> doubleLeftRotation(Node<T> nodeA) {
+		nodeA = this.leftRotation(nodeA.rightSon);
+		return this.leftRotation(nodeA);
+	}
+	
+	/**
+	 * Méthode qui effectue une rotation droite sur un arbre, puis retourne la racine du nouvel arbre
+	 * @param nodeA Arbre sur lequel effectuer la rotation
+	 * @return La racine de l'arbre formé après la rotation droite
+	 */
+	private Node<T> rightRotation(Node<T> nodeA) {
+		int a, b;
+		
+		Node<T> nodeB = nodeA.leftSon;
+		a = nodeA.height;
+		b = nodeB.height;
+		// Left rotation
+		nodeA.leftSon = nodeB.rightSon;
+		nodeB.rightSon = nodeA;
+		// Update the height of the new tree
+		nodeA.height = a - Math.max(b,0) - 1;
+		nodeB.height = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeB;
+		
+	}
+	
+	/**
+	 * Méthode qui effectue une double rotation droite sur un arbre, puis retourne la racine du nouvel arbre
+	 * @param nodeA arbre sur lequel effectuer la double rotation
+	 * @param La racine de l'arbre formé après la double rotation droite
+	 */
+	private Node<T> doubleRightRotation(Node<T> nodeA) {
+		nodeA = this.rightRotation(nodeA.leftSon);
+		return this.rightRotation(nodeA);
+	}
 
 }
