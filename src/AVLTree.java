@@ -187,6 +187,32 @@ class Node<T extends Comparable> {
 	}
 	
 	/**
+	 * Méthode qui équilibre l'arbre
+	 * @param nodeA L'arbre sur lequel effectuer l'équlibrage
+	 * @return La racine du nouvel arbre formé après équilibrage
+	 */
+	private Node<T> balance(Node<T> nodeA) {
+		// If the balance == 2, then the tree is unbalanced to the right
+		if(nodeA.balance == 2) {
+			if(nodeA.rightSon.balance >= 0) {
+				// We perform a simple left rotation
+				return this.leftRotation(nodeA);
+			} else { // else, we perform a double left rotation
+				return this.doubleLeftRotation(nodeA);
+			}
+		} else if(nodeA.balance == -2) { // else, if == -2, then the tree is unbalanced to the left
+			if(nodeA.leftSon.balance <= 0) {
+				// We perform a simple right rotation
+				return this.rightRotation(nodeA);
+			} else { // else, we perform a double right rotation
+				return this.doubleRightRotation(nodeA);
+			}
+		} else { // else, the tree is balanced
+			return nodeA;
+		}
+	}
+	
+	/**
 	 * Méthode qui effectue une rotation gauche sur un arbre, puis retourne la racine du nouvel arbre
 	 * @param nodeA Arbre sur lequel effectuer la rotation
 	 * @return La racine de l'arbre après avec la rotation gauche
@@ -213,7 +239,7 @@ class Node<T extends Comparable> {
 	 * @param La racine de l'arbre formé après la double rotation gauche
 	 */
 	private Node<T> doubleLeftRotation(Node<T> nodeA) {
-		nodeA = this.leftRotation(nodeA.rightSon);
+		nodeA.rightSon = this.leftRotation(nodeA.rightSon);
 		return this.leftRotation(nodeA);
 	}
 	
@@ -244,7 +270,7 @@ class Node<T extends Comparable> {
 	 * @param La racine de l'arbre formé après la double rotation droite
 	 */
 	private Node<T> doubleRightRotation(Node<T> nodeA) {
-		nodeA = this.rightRotation(nodeA.leftSon);
+		nodeA.leftSon = this.rightRotation(nodeA.leftSon);
 		return this.rightRotation(nodeA);
 	}
 
