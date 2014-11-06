@@ -6,15 +6,12 @@
  */
 class AVLNode<T extends Comparable> extends ABRNode<T> {
 	
-	private int balance;
-	
 	/**
 	 * Constructeur simple, i.e. pour une feuille
 	 * @param tag  Étiquette du Node
 	 */
 	public AVLNode(T tag){
 		super(tag);
-		this.balance = 0;
 	}
 	
 	/**
@@ -32,9 +29,16 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param element Élement à add
 	 */
 	public void add(T element){
-		super.add(element);
-		this.balance += this.computeHeight();
-		equilibrer(this);
+		super.add(element); //ajout de l'élément dans l'arbre
+		
+		if(this.leftSon == null) {
+			this.balance = 1;
+		} else if (this.rightSon == null) {
+			this.balance = -1;
+		} else {
+			this.balance = this.rightSon.computeHeight() - this.leftSon.computeHeight();
+		}
+		equilibrer(this); //équilibrage de l'arbre
 	}
 	
 	/**
@@ -45,16 +49,14 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	private ABRNode<T> equilibrer(AVLNode<T> nodeA) {
 		// If the balance == 2, then the tree is unbalanced to the right
 		if(nodeA.balance == 2) {
-			AVLNode<T> right = (AVLNode<T>) nodeA.rightSon;
-			if(right.balance >= 0) {
+			if(nodeA.rightSon.balance >= 0) {
 				// We perform a simple left rotation
 				return this.leftRotation(nodeA);
 			} else { // else, we perform a double left rotation
 				return this.doubleLeftRotation(nodeA);
 			}
 		} else if(nodeA.balance == -2) { // else, if == -2, then the tree is unbalanced to the left
-			AVLNode<T> left = (AVLNode<T>) nodeA.leftSon;
-			if(left.balance <= 0) {
+			if(nodeA.leftSon.balance <= 0) {
 				// We perform a simple right rotation
 				return this.rightRotation(nodeA);
 			} else { // else, we perform a double right rotation
@@ -70,19 +72,18 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param nodeA L'arbre sur lequel effectuer la rotation
 	 * @return La racine de l'arbre après avec la rotation gauche
 	 */
-	private ABRNode<T> leftRotation(AVLNode<T> nodeA) {
+	private ABRNode<T> leftRotation(ABRNode<T> nodeA) {
 		int a, b;
-		
-		AVLNode<T> nodeB = (AVLNode<T>) nodeA.rightSon;
+
 		a = nodeA.balance;
-		b = nodeB.balance;
+		b = nodeA.rightSon.balance;
 		// Left rotation
-		nodeA.rightSon = nodeB.leftSon;
-		nodeB.leftSon = nodeA;
+		nodeA.rightSon = nodeA.rightSon.leftSon;
+		nodeA.rightSon.leftSon = nodeA;
 		// Update the balance of the new tree
 		nodeA.balance = a - Math.max(b,0) - 1;
-		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
-		return nodeB;
+		nodeA.rightSon.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeA.rightSon;
 		
 	}
 	
@@ -91,8 +92,8 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param nodeA L'arbre sur lequel effectuer la double rotation
 	 * @return La racine de l'arbre formé après la double rotation gauche
 	 */
-	private ABRNode<T> doubleLeftRotation(AVLNode<T> nodeA) {
-		nodeA.rightSon = this.leftRotation((AVLNode<T>) nodeA.rightSon);
+	private ABRNode<T> doubleLeftRotation(ABRNode<T> nodeA) {
+		nodeA.rightSon = this.leftRotation(nodeA.rightSon);
 		return this.leftRotation(nodeA);
 	}
 	
@@ -101,19 +102,18 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param nodeA L'arbre sur lequel effectuer la rotation
 	 * @return La racine de l'arbre formé après la rotation droite
 	 */
-	private ABRNode<T> rightRotation(AVLNode<T> nodeA) {
+	private ABRNode<T> rightRotation(ABRNode<T> nodeA) {
 		int a, b;
 		
-		AVLNode<T> nodeB = (AVLNode<T>) nodeA.leftSon;
 		a = nodeA.balance;
-		b = nodeB.balance;
+		b = nodeA.leftSon.balance;
 		// Right rotation
-		nodeA.leftSon = nodeB.rightSon;
-		nodeB.rightSon = nodeA;
+		nodeA.leftSon = nodeA.leftSon.rightSon;
+		nodeA.leftSon.rightSon = nodeA;
 		// Update the balance of the new tree
 		nodeA.balance = a - Math.max(b,0) - 1;
-		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
-		return nodeB;
+		nodeA.leftSon.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeA.leftSon;
 		
 	}
 	
@@ -122,8 +122,8 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param nodeA L'arbre sur lequel effectuer la double rotation
 	 * @return La racine de l'arbre formé après la double rotation droite
 	 */
-	private ABRNode<T> doubleRightRotation(AVLNode<T> nodeA) {
-		nodeA.leftSon = this.rightRotation((AVLNode<T>) nodeA.leftSon);
+	private ABRNode<T> doubleRightRotation(ABRNode<T> nodeA) {
+		nodeA.leftSon = this.rightRotation(nodeA.leftSon);
 		return this.rightRotation(nodeA);
 	}
 }

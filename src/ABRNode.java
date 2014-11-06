@@ -7,6 +7,7 @@ public class ABRNode<T extends Comparable> {
 
 	protected ABRNode<T> leftSon, rightSon;
 	protected T tag;
+	protected int balance;
 	
 	/**
 	 * Constructeur simple, i.e. pour une feuille
@@ -16,6 +17,7 @@ public class ABRNode<T extends Comparable> {
 		this.tag = tag;
 		this.leftSon = null;
 		this.rightSon = null;
+		this.balance = 0;
 	}
 	
 	/**
