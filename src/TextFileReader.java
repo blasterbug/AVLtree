@@ -3,6 +3,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * Open a text file and read words from it
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 public class TextFileReader {
     private BufferedReader readFile;
+    //private final Pattern wordSniper = Pattern.compile("[^\w]");
 
     public TextFileReader(){
 
@@ -74,7 +76,10 @@ public class TextFileReader {
      */
     public String[] readWordsPerLine() {
         try {
-            String line = readFile.readLine();
+            String line = "";
+            while(0 == line.length() && readFile.ready()){
+                line = readFile.readLine();
+            }
             return line.split(" ");
         } catch (IOException ex) {
             System.err.println(ex.getMessage());

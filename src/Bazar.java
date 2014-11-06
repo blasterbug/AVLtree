@@ -13,13 +13,13 @@ public class Bazar {
 
         if(germinal.openTextFile(file)){
             String words[];
-            //while(germinal.available()){
+            while(germinal.available()){
                 words = germinal.readWordsPerLine();
                 for(String str : words){
                     System.out.println(str);
                     arbre.add(str);
                 }
-            //}
+            }
             germinal.closeFile();
         }
         else {
