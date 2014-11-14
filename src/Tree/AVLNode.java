@@ -46,7 +46,6 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	/**
 	 * Méthode qui équilibre l'arbre
 	 * @param nodeA L'arbre sur lequel effectuer l'équlibrage
-	 * @return La racine du nouvel arbre formé après équilibrage
 	 */
 	private void equilibrer(ABRNode<T> nodeA) {
 		// If the balance == 2, then the tree is unbalanced to the right

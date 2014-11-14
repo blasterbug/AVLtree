@@ -10,6 +10,7 @@ public class ABRNode<T extends Comparable> {
 	protected ABRNode<T> leftSon, rightSon;
 	protected T tag;
 	protected int balance;
+	protected boolean	estNoir;
 	
 	/**
 	 * Constructeur simple, i.e. pour une feuille
@@ -20,6 +21,7 @@ public class ABRNode<T extends Comparable> {
 		this.leftSon = null;
 		this.rightSon = null;
 		this.balance = 0;
+		this.estNoir = false;
 	}
 	
 	/**
@@ -32,10 +34,12 @@ public class ABRNode<T extends Comparable> {
 		this.tag = tag;
 		this.leftSon = leftSon;
 		this.rightSon = rightSon;
+		this.estNoir = false;
 	}
 	
 	/**
-	 * What is a node height ?
+	 * Méthode calculant la hauteur du noeud
+	 * @return La hauteur du noeud
 	 */
 	protected int computeHeight(){
 		
