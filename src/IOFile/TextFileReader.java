@@ -1,4 +1,4 @@
-/// a text file as a buffer input
+package IOFile;/// a text file as a buffer input
 
 import java.io.BufferedReader;
 import java.io.FileReader;

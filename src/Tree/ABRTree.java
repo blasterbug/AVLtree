@@ -1,3 +1,5 @@
+package Tree;
+
 /**
  * A generic class for a Binary search tree
  * 

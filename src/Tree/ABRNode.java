@@ -1,3 +1,5 @@
+package Tree;
+
 /**
  * Node in an ABR tree
  * @author Benjamin Sientzoff, Thomas Minier
@@ -95,7 +97,7 @@ public class ABRNode<T extends Comparable> {
 	 * @return Son right du Node
 	 * @throws NoSonException Exception si pas de Son right
 	 */
-	public ABRNode<T> getRightSon() throws NoSonException{
+	public ABRNode<T> getRightSon() throws NoSonException {
 		if( null == rightSon )
 			throw new NoSonException("Le Node n'a pas de Son right!");
 		return rightSon;
@@ -106,7 +108,7 @@ public class ABRNode<T extends Comparable> {
 	 * @return Son left du Node
 	 * @throws NoSonException Exception si pas de Son left
 	 */
-	public ABRNode<T> getLeftSon() throws NoSonException{
+	public ABRNode<T> getLeftSon() throws NoSonException {
 		if( null == leftSon )
 			throw new NoSonException("Le Node n'a pas de Son left!");
 		return leftSon;
