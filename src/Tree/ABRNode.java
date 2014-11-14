@@ -38,24 +38,16 @@ public class ABRNode<T extends Comparable> {
 	 * What is a node height ?
 	 */
 	protected int computeHeight(){
-		if(null == leftSon){
-			if(null == rightSon){
-				// if node, height is 0
-				return 0;
-			}
-			else{
-				// height is right son height plus 1 (no left son)
-				return 1 + rightSon.computeHeight();
-			}
-		}
-		else {
-			if(null == rightSon){
-				// no right son, height is 1 plus 
+		
+		if(this.isLeaf()) {
+			return 0;
+		} else {
+			if(this.rightSon == null) {
 				return 1 + leftSon.computeHeight();
-			}
-			else{
-				// if two sons, height is sons maximum height
-				return Math.max(leftSon.computeHeight(), rightSon.computeHeight());
+			} else if(this.leftSon == null) {
+				return 1 + rightSon.computeHeight();
+			} else {
+				return 1 + Math.max(leftSon.computeHeight(), rightSon.computeHeight());
 			}
 		}
 	}

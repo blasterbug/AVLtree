@@ -40,6 +40,7 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 			this.balance = this.rightSon.computeHeight() - this.leftSon.computeHeight();
 		}
 		equilibrer(this); //équilibrage de l'arbre
+		
 	}
 	
 	/**
@@ -47,24 +48,24 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 * @param nodeA L'arbre sur lequel effectuer l'équlibrage
 	 * @return La racine du nouvel arbre formé après équilibrage
 	 */
-	private ABRNode<T> equilibrer(AVLNode<T> nodeA) {
+	private void equilibrer(ABRNode<T> nodeA) {
 		// If the balance == 2, then the tree is unbalanced to the right
 		if(nodeA.balance == 2) {
 			if(nodeA.rightSon.balance >= 0) {
 				// We perform a simple left rotation
-				return this.leftRotation(nodeA);
+				nodeA = this.leftRotation(nodeA);
 			} else { // else, we perform a double left rotation
-				return this.doubleLeftRotation(nodeA);
+				nodeA.rightSon = this.rightRotation(nodeA.rightSon);
+				nodeA = this.leftRotation(nodeA);
 			}
 		} else if(nodeA.balance == -2) { // else, if == -2, then the tree is unbalanced to the left
 			if(nodeA.leftSon.balance <= 0) {
 				// We perform a simple right rotation
-				return this.rightRotation(nodeA);
+				nodeA = this.rightRotation(nodeA);
 			} else { // else, we perform a double right rotation
-				return this.doubleRightRotation(nodeA);
+				nodeA.leftSon = this.leftRotation(nodeA.leftSon);
+				nodeA = this.rightRotation(nodeA);
 			}
-		} else { // else, the tree is balanced
-			return nodeA;
 		}
 	}
 	
@@ -75,16 +76,17 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 */
 	private ABRNode<T> leftRotation(ABRNode<T> nodeA) {
 		int a, b;
+		ABRNode<T> nodeB = nodeA.rightSon;
 
 		a = nodeA.balance;
-		b = nodeA.rightSon.balance;
+		b = nodeB.balance;
 		// Left rotation
-		nodeA.rightSon = nodeA.rightSon.leftSon;
-		nodeA.rightSon.leftSon = nodeA;
+		nodeA.rightSon = nodeB.leftSon;
+		nodeB.leftSon = nodeA;
 		// Update the balance of the new tree
 		nodeA.balance = a - Math.max(b,0) - 1;
-		nodeA.rightSon.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
-		return nodeA.rightSon;
+		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeB;
 		
 	}
 	
@@ -105,16 +107,17 @@ class AVLNode<T extends Comparable> extends ABRNode<T> {
 	 */
 	private ABRNode<T> rightRotation(ABRNode<T> nodeA) {
 		int a, b;
+		ABRNode<T> nodeB = nodeA.leftSon;
 		
 		a = nodeA.balance;
-		b = nodeA.leftSon.balance;
+		b = nodeB.balance;
 		// Right rotation
-		nodeA.leftSon = nodeA.leftSon.rightSon;
-		nodeA.leftSon.rightSon = nodeA;
+		nodeA.leftSon = nodeB.rightSon;
+		nodeB.rightSon = nodeA;
 		// Update the balance of the new tree
 		nodeA.balance = a - Math.max(b,0) - 1;
-		nodeA.leftSon.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
-		return nodeA.leftSon;
+		nodeB.balance = Math.min(a - 2, Math.min(a + b - 2, b - 1));
+		return nodeB;
 		
 	}
 	
