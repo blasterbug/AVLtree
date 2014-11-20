@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 /**
  * Open a text file and read words from it
  * @author Benjamin Sientzoff
+ * @author Thomas Minier
  * @version 0.1 6 nov. 2014
  */
 

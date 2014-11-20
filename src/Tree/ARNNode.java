@@ -1,8 +1,5 @@
 package Tree;
 
-import java.util.HashMap;
-import java.util.Vector;
-
 /**
  * Node in a Black & Red Tree (data structure created by Rudolf Bayer - 1972)
  * @author Benjamin Sientzoff, Thomas Minier
