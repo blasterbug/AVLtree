@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{ifpdf}
+\usepackage{hyperref}
+\title{\text{Quel bazar!}}
+\author{Thomas \textsc{Minier}, Benjamin \textsc{Sientzoff}}
+\date{\today}
+\ifpdf
+\hypersetup{
+    pdfauthor={Thomas Minier, Benjamin Sientzoff},
+    pdftitle={Quel bazar!},
+}
+\fi
+\begin{document}
+	% page de garde avec sommaire
+	\maketitle
+	\vspace{5cm}
+	\tableofcontents
+	\newpage % passer à la page suivante
+	
+	\section*{Introduction}
+	% présenter le cadre du projet
+	% présenter le prjet en lui-même, idées de base, inspiration
+	\paragraph{}{le paragraphe d'intro}
+	
+	\section{Implémentation}
+	
+		% présentation des principales classes, méthodes
+		% à quoi elles servent?
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}
+		
+		\subsection{Premier pattern}
+		% l'observeur
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}
+		
+	\section{Utilisation Nono-1}
+		\subsection{Second pattern}
+		% le décorateur
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}
+		
+		\subsection{Troisième pattern}
+		% toto
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}
+	
+	
+	\section*{Conclusion}
+		\paragraph{}{je conclu}
+		
+\end{document}
