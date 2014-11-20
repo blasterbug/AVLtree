@@ -11,7 +11,7 @@ import java.util.Vector;
  * @author Benjamin Sientzoff
  * @version 0.1 14 nov. 2014
  */
-public class Class<T> {ss
+public class Class<T> {
     /**
      * The sons table give element value.
      * The first element in the table is the representative of this class.
