@@ -64,6 +64,34 @@ public class ABRNode<T extends Comparable> {
 		return tag;
 	}
 	
+	
+	/**
+	 * Méthode testant si un élément est dans l'arbre
+	 * @param elt L'élément dont on veut tester l'existence
+	 * @return True si l'élément est présent. Faux sinon
+	 */
+	public boolean contains(T elt) {
+		//Si le noeud n'est pas une feuille
+		if( ! this.isLeaf()) {
+			//si l'élément courant correspond à l'élément recherché
+			if( this.tag == elt) {
+				//on renvoie vrai
+				return true;
+			} else {
+				//sinon, on teste si le fils droit ou le fils gauche du noeud contiennent l'élément
+				if(this.rightSon == null) {
+					return this.leftSon.contains(elt);
+				} else if(this.leftSon == null) {
+					return this.rightSon.contains(elt);
+				} else {
+					return this.leftSon.contains(elt) || this.rightSon.contains(elt);
+				}
+			}
+		} else { //sinon, on renvoie faux
+			return false;
+		}
+	}
+	
 	/**
 	 * Le Node est-il une feuille ?
 	 * @return retourne vrai si pas de Son, sinon faux
