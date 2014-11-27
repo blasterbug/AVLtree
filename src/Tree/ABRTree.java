@@ -10,10 +10,17 @@ public class ABRTree<T extends Comparable> {
 	
 	protected ABRNode<T> root;
 	
+	/**
+	 * Constructeur
+	 * @param root L'étiquette du noeud de la racine
+	 */
 	public ABRTree(T root){
 		this.root = new ABRNode<T>(root);
 	}
 	
+	/**
+	 * Constructeur vide
+	 */
 	public ABRTree(){
 		this.root = null;
 	}

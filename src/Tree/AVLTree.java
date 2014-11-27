@@ -11,10 +11,17 @@ package Tree;
 
 public class AVLTree<T extends Comparable> extends ABRTree<T>{
 	
+	/**
+	 * Constructeur
+	 * @param root L'étiquette du noeud de la racine
+	 */
 	public AVLTree(T root){
 		this.root = new AVLNode<T>(root);
 	}
 	
+	/**
+	 * Constructeur vide
+	 */
 	public AVLTree(){
 		this.root = null;
 	}
