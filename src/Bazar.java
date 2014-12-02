@@ -20,11 +20,11 @@ public class Bazar {
 			
 			// Variables
 			int k = Integer.parseInt(args[0]); // nombre de mots en commun si deux pages font partie du même chapitre
-      Vector<String> dictionnaire = new Vector<String>(); // dictionnaire 
+      AVLTree<String> dictionnaire = new AVLTree<String>(); // dictionnaire 
       TextFileReader reader = new TextFileReader(); // lecteur de fichier
-      // collection des triplets (id_page, page, nb mots du dictionnaire)
-      // elle est représentée sous la forme paire(id, paire(arbre, nb mots))
-      Vector<Pair<String, Pair<AVLTree<String>, Integer>>> collection = new Vector<Pair<String, Pair<AVLTree<String>, Integer>>>();
+      // collection des paires (id_page, nb mots du dictionnaire dans la page)
+      // elle est représentée sous la forme paire(arbre, nb mots)
+      Vector<Pair<String, Integer>> collection = new Vector<Pair<String, Integer>>();
       
       // On stocke le contenu du dictionnaire dans une liste
       
@@ -53,47 +53,39 @@ public class Bazar {
       // Création des arbres & des classes 
       
       // on parcours la liste des fichiers passés en arguments
-      for(int ind = 2; ind < args.length; ++ind) {
-      	boolean estPremierMot = true;     	
+      for(int ind = 2; ind < args.length; ++ind) {    	
       	
       	// si le fichier courant existe
       	if(reader.openTextFile(args[ind])) {
       		String mots[];
-      		Pair<String, Pair<AVLTree<String>, Integer>> pair = new Pair<String, Pair<AVLTree<String>, Integer>>();
-      		AVLTree<String> arbre = new AVLTree<String>();
+      		Pair<String, Integer> pair = new Pair<String, Integer>();
+      		
+      		// on récupère tous les mots de la ligne courante
+      		mots = reader.readWordsPerLine();
+      		
+      		// on set l'id de la paire et le nombre de mots 
+      		// de la page dans le dictionnaire à 0
+    			pair.setLeft(mots[0]);
+    			pair.setRight(0);
       		
       		// on parcours le fichier ligne par ligne
-      		while(reader.available()) {
-      			
-      			// si on est en train de lire le premier mot, c'est à dire l'identifiant de la page
-      			if(estPremierMot) { 
-      				// on récupère tous les mots de la ligne courante
-        			mots = reader.readWordsPerLine();
+      		while(reader.available()) {	
+ 
+      			// on récupère tous les mots de la ligne courante
+        		mots = reader.readWordsPerLine();
+        		
+        		// on parcours le tableau des mots
+        		for(String mot: mots) {
         			
-        			//on set l'id de la paire
-        			pair.setLeft(mots[0]); 
-        			
-        			// on parcours le reste des mots du tableau et on les ajoute dans l'arbre
-        			for(int j = 1; j < mots.length; ++j) {
-        				arbre.add(mots[j]);
-        			}
-        			// on indique qu'on a déjà lu le premier mot
-        			estPremierMot = false;
-        			
-      			} else { //sinon, traitement normal
+        			//on vérifie si le mot courante est dans le dictionnaire
+        			if(dictionnaire.contains(mot)) {
+        				
+        				// on incrémente alors le nb dans la paire
+        				pair.setRight(pair.getRight() + 1);
       				
-      				// on récupère tous les mots de la ligne courante
-        			mots = reader.readWordsPerLine();
-        			
-        			// on parcours le tableau des mots et on les ajoute dans l'arbre
-        			for(String mot: mots) {
-        				arbre.add(mot);
         			}
-      			}    			
+        		}   			
       		}
-      		
-      		//on ajoute l'arbre dans la paire
-    			pair.setRight(new Pair<AVLTree<String>, Integer>(arbre,0));
     			
     			// on ajoute la paire à la collection
     			collection.add(pair);
@@ -106,30 +98,30 @@ public class Bazar {
       	}
       }
       
-      // on crée la classe-union
-      UnionFind<Pair<String, Pair<AVLTree<String>, Integer>>> unionFind = new UnionFind<Pair<String, Pair<AVLTree<String>, Integer>>>(collection);
+      // on crée la classe-union à partir de la collection
+      UnionFind<Pair<String, Integer>> unionFind = new UnionFind<Pair<String, Integer>>(collection);
       
       // on procède aux unions des classes pour créer les chapitres
       
-      // on parcours le dictionnaire
-      for(String key: dictionnaire) {
+      // on parcours les classes via la collection
+      for(int ind = 0; ind < collection.size(); ++ind) {
+      	// on récupère la paire courante
+      	Pair<String, Integer> pairA = collection.get(ind);
       	
-      	// on compte les occurences de la clé dans chacune des pages
-      	
-      		// on teste si l'arbre courant contient la clé
-      		// si oui, on incrémente le nb d'occu de 1
-      	
+      	// on parcours le reste des pairs
+      	for(int j = 0; j < collection.size(); ++j) {
+      		// on récupère l'autre paire courante
+      		Pair<String, Integer> pairB = collection.get(j);
+      		
+      		// si on peut unir les deux paires, on le fait
+      		if( (pairA.getRight() == pairB.getRight()) && (pairA.getRight() >= k)) {
+      			unionFind.union(pairA, pairB);
+      		}
+      	}
       }
       
-      // on regarde chaque nb d'occurence associé à un arbre
-  			// si deux arbres ont le même nb d'occurences et que nb >= k, alors on fait l'union des deux arbres/classes     	     	
-      
-      // Affichage des différents chapitre
-      
-      // on parcours nos classes-unions
-      	
-      	// on affiche le numéro du chapitre et la liste des id des pages du chapitre
-      
+      // on affiche le contenu de classes-union
+      System.out.println(unionFind.toString());
       
 		} else { // si on n'a pas le bon nombre d'arguments, on affiche une erreur
 			System.err.println("Erreur fatale : le programme doit être lancé avec au moins 3 arguments (voir le README)");

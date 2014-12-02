@@ -61,4 +61,8 @@ public class Pair<A, B> {
 	public void setRight(B r) {
 		right = r;
 	}
+	
+	public String toString() {
+		return left.toString();
+	}
 }
