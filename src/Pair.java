@@ -67,6 +67,6 @@ public class Pair<A, B> {
 	 * @return La représentation sous forme de chaîne de l'objet
 	 */
 	public String toString() {
-		return left.toString();
+		return left.toString() + " - " + right.toString();
 	}
 }

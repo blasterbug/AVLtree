@@ -1,5 +1,6 @@
 import java.util.Vector;
 import IOFile.TextFileReader;
+import Tree.ABRTree;
 import Tree.AVLTree;
 import Union.UnionFind;
 
@@ -50,6 +51,8 @@ public class Bazar {
       	System.exit(0); // arrêt du programme
       }
       
+      System.out.println(dictionnaire.contains("mama"));
+      
       // Création des arbres & des classes 
       
       // on parcours la liste des fichiers passés en arguments
@@ -68,7 +71,7 @@ public class Bazar {
     			pair.setLeft(mots[0]);
     			pair.setRight(0);
       		
-      		// on parcours le fichier ligne par ligne
+      		// on parcours le reste du fichier ligne par ligne
       		while(reader.available()) {	
  
       			// on récupère tous les mots de la ligne courante
@@ -76,10 +79,8 @@ public class Bazar {
         		
         		// on parcours le tableau des mots
         		for(String mot: mots) {
-        			
         			//on vérifie si le mot courante est dans le dictionnaire
         			if(dictionnaire.contains(mot)) {
-        				
         				// on incrémente alors le nb dans la paire
         				pair.setRight(pair.getRight() + 1);
       				
@@ -104,12 +105,12 @@ public class Bazar {
       // on procède aux unions des classes pour créer les chapitres
       
       // on parcours les classes via la collection
-      for(int ind = 0; ind < collection.size(); ++ind) {
+      for(int ind = 0; ind < collection.size(); ind++) {
       	// on récupère la paire courante
       	Pair<String, Integer> pairA = collection.get(ind);
       	
       	// on parcours le reste des pairs
-      	for(int j = 0; j < collection.size(); ++j) {
+      	for(int j = 0; j < collection.size(); j++) {
       		// on récupère l'autre paire courante
       		Pair<String, Integer> pairB = collection.get(j);
       		
