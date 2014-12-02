@@ -36,6 +36,23 @@ public class UnionFind<T> {
         for(T element : elements) {
             tags.add(i , element);
             fathers.add(i ,i);
+            ++i;
+        }
+    }
+
+    /**
+     * Constructor
+     * When creating a class, you need at least one element
+     * @param elements The classes in a tabular
+     */
+    public UnionFind(T[] elements){
+        tags = new Vector<T>();
+        fathers = new Vector<Integer>();
+        int i = 0;
+        for(T element : elements) {
+            tags.add(i , element);
+            fathers.add(i ,i);
+            ++i;
         }
     }
 
@@ -55,11 +72,18 @@ public class UnionFind<T> {
      * @return The <i>representative</i> of the class which contains element
      */
     public T find(T element) {
-        int idx = tags.indexOf(element);
-        while(fathers.get(idx) != idx) {
-            idx = fathers.elementAt(idx);
+        try {
+            int idx = tags.indexOf(element);
+            while (fathers.get(idx) != idx) {
+                idx = fathers.elementAt(idx);
+            }
+            return tags.elementAt(idx);
         }
-        return tags.elementAt(idx);
+        catch( ArrayIndexOutOfBoundsException ex )
+        {
+            System.err.println( ex );
+            return element;
+        }
     }
 
     /**
@@ -70,7 +94,13 @@ public class UnionFind<T> {
     public void union(T arg1, T arg2) {
         T representative1 = find(arg1);
         T representative2 = find(arg2);
-        fathers.setElementAt(tags.indexOf(representative2), fathers.elementAt(tags.indexOf(representative1)));
+        try {
+            fathers.setElementAt(tags.indexOf(representative2), fathers.elementAt(tags.indexOf(representative1)));
+        }
+        catch( ArrayIndexOutOfBoundsException ex)
+        {
+            System.err.println( ex );
+        }
     }
 
     /**
