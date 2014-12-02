@@ -62,6 +62,10 @@ public class Pair<A, B> {
 		right = r;
 	}
 	
+	/**
+	 * Méthode retournant une représentation sous forme de chaîne de l'objet
+	 * @return La représentation sous forme de chaîne de l'objet
+	 */
 	public String toString() {
 		return left.toString();
 	}
