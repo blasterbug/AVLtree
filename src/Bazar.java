@@ -21,14 +21,18 @@ public class Bazar {
 			
 			// Variables
 			int k = Integer.parseInt(args[0]); // nombre de mots en commun si deux pages font partie du même chapitre
-      AVLTree<String> dictionnaire = new AVLTree<String>(); // dictionnaire
-      TextFileReader reader = new TextFileReader(); // lecteur de fichier
-      Vector<String> truc = new Vector<String>();
+			
+			// dictionnaire
+      AVLTree<String> dictionnaire = new AVLTree<String>();
+      
+      // lecteur de fichier
+      TextFileReader reader = new TextFileReader();
+      
       // collection des paires (id_page, nb mots du dictionnaire dans la page)
       // elle est représentée sous la forme paire(arbre, nb mots)
       Vector<Pair<String, Integer>> collection = new Vector<Pair<String, Integer>>();
       
-      // On stocke le contenu du dictionnaire dans une liste
+      // On stocke le contenu du dictionnaire dans un AVL
       
       // si le fichier du dictionnaire existe
       if(reader.openTextFile(args[1])) {
@@ -44,7 +48,6 @@ public class Bazar {
 	    		for(String c: cles) {
 	    			// on ajoute la clé courante au dictionnaire
 	    			dictionnaire.add(c);
-	    			truc.add(c);
 	    		}
 	    		
       	}
@@ -53,10 +56,7 @@ public class Bazar {
       	System.exit(0); // arrêt du programme
       }
       
-      System.out.println(dictionnaire.contains("tata"));
-      System.out.println(dictionnaire.toString());
-      
-      // Création des arbres & des classes 
+      // Création des classes
       
       // on parcours la liste des fichiers passés en arguments
       for(int ind = 2; ind < args.length; ++ind) {    	
@@ -82,11 +82,10 @@ public class Bazar {
         		
         		// on parcours le tableau des mots
         		for(String mot: mots) {
-        			//on vérifie si le mot courante est dans le dictionnaire
+        			// on vérifie si le mot courant est dans le dictionnaire
         			if(dictionnaire.contains(mot)) {
         				// on incrémente alors le nb dans la paire
-        				pair.setRight(pair.getRight() + 1);
-      				
+        				pair.setRight(pair.getRight() + 1);    				
         			}
         		}   			
       		}
