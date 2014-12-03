@@ -30,7 +30,7 @@ public class Bazar {
       
       // collection des paires (id_page, nb mots du dictionnaire dans la page)
       // elle est représentée sous la forme paire(arbre, nb mots)
-      Vector<Pair<String, Integer>> collection = new Vector<Pair<String, Integer>>();
+      Vector<Pair<String, AVLTree<String>>> collection = new Vector<Pair<String, AVLTree<String>>>();
       
       // On stocke le contenu du dictionnaire dans un AVL
       
@@ -64,7 +64,7 @@ public class Bazar {
       	// si le fichier courant existe
       	if(reader.openTextFile(args[ind])) {
       		String mots[];
-      		Pair<String, Integer> pair = new Pair<String, Integer>();
+      		Pair<String, AVLTree<String>> pair = new Pair<String, AVLTree<String>>();
       		
       		// on récupère tous les mots de la ligne courante
       		mots = reader.readWordsPerLine();
@@ -72,7 +72,7 @@ public class Bazar {
       		// on set l'id de la paire et le nombre de mots 
       		// de la page dans le dictionnaire à 0
     			pair.setLeft(mots[0]);
-    			pair.setRight(0);
+    			pair.setRight(new AVLTree<String>());
       		
       		// on parcours le reste du fichier ligne par ligne
       		while(reader.available()) {	
@@ -84,8 +84,8 @@ public class Bazar {
         		for(String mot: mots) {
         			// on vérifie si le mot courant est dans le dictionnaire
         			if(dictionnaire.contains(mot)) {
-        				// on incrémente alors le nb dans la paire
-        				pair.setRight(pair.getRight() + 1);    				
+        				// on stocke le mot dans l'élément droit de la paire
+        				pair.getRight().add(mot);
         			}
         		}   			
       		}
@@ -102,22 +102,22 @@ public class Bazar {
       }
       
       // on crée la classe-union à partir de la collection
-      UnionFind<Pair<String, Integer>> unionFind = new UnionFind<Pair<String, Integer>>(collection);
+      UnionFind<Pair<String, AVLTree<String>>> unionFind = new UnionFind<Pair<String, AVLTree<String>>>(collection);
       
       // on procède aux unions des classes pour créer les chapitres
       
       // on parcours les classes via la collection
-      for(int ind = 0; ind < collection.size(); ind++) {
+      for(int ind = 0; ind < collection.size() - 1; ind++) {
       	// on récupère la paire courante
-      	Pair<String, Integer> pairA = collection.get(ind);
+      	Pair<String, AVLTree<String>> pairA = collection.get(ind);
       	
       	// on parcours le reste des pairs
-      	for(int j = 0; j < collection.size(); j++) {
+      	for(int j = 0; j < collection.size() - 1; j++) {
       		// on récupère l'autre paire courante
-      		Pair<String, Integer> pairB = collection.get(j);
+      		Pair<String, AVLTree<String>> pairB = collection.get(j);
       		
       		// si on peut unir les deux paires, on le fait
-      		if( (pairA.getRight() == pairB.getRight()) && (pairA.getRight() >= k)) {
+      		if(pairA.getRight().nbCommuns(pairB.getRight()) >= k) {
       			unionFind.union(pairA, pairB);
       		}
       	}

@@ -53,5 +53,14 @@ public class ABRTree<T extends Comparable> {
 	public String toString(){
 		return root.toString();
 	}
+	
+	/**
+	 * Méthode retournant le nombre d'éléments communs à deux arbres
+	 * @param arbre L'autre arbre dont on veut comparer les éléments avec l'arbre courant
+	 * @return Le nombre d'éléments communs entre les deux arbres
+	 */
+	public int nbCommuns(ABRTree<T> arbre) {
+		return this.root.nbCommuns(arbre.root);
+	}
 
 }

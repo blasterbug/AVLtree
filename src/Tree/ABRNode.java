@@ -189,4 +189,33 @@ public class ABRNode<T extends Comparable> {
 		}
 	}
 	
+	/**
+	 * Méthode retournant le nombre d'éléments communs à deux arbres
+	 * @param nodeB L'autre arbre dont on veut compraer les éléments avec l'arbre courant
+	 * @return Le nombre d'éléments communs entre les deux arbres
+	 */
+	public int nbCommuns(ABRNode<T> nodeB) {
+		int i;
+		if ( nodeB.contains(tag)){			
+			i = 1;
+		}
+		else {
+			i = 0;
+		}
+		if(this.leftSon != null) {
+			i += leftSon.nbCommuns(nodeB);
+		}
+		
+		if(this.rightSon != null) {
+			i += rightSon.nbCommuns(nodeB);
+		}
+		
+		if(this.isLeaf()) {
+			if(nodeB.contains(tag)) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
 }
