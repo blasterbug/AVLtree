@@ -51,7 +51,11 @@ public class ABRTree<T extends Comparable> {
 	 * @return L'arbre sous la forme d'une chaîne de caractères
 	 */
 	public String toString(){
-		return root.toString();
+		if(root == null) {
+			return "";
+		} else {
+			return root.toString();
+		}
 	}
 	
 	/**
@@ -60,7 +64,11 @@ public class ABRTree<T extends Comparable> {
 	 * @return Le nombre d'éléments communs entre les deux arbres
 	 */
 	public int nbCommuns(ABRTree<T> arbre) {
-		return this.root.nbCommuns(arbre.root);
+		if(root == null) {
+			return 0;
+		} else {
+			return this.root.nbCommuns(arbre.root);
+		}
 	}
 
 }

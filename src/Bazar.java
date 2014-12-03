@@ -58,8 +58,8 @@ public class Bazar {
       
       // Création des classes
       
-      // on parcours la liste des fichiers passés en arguments
-      for(int ind = 2; ind < args.length; ++ind) {    	
+      // on parcours la liste des pages passés en arguments
+      for(int ind = 2; ind < args.length; ind++) {    	
       	
       	// si le fichier courant existe
       	if(reader.openTextFile(args[ind])) {
@@ -73,7 +73,7 @@ public class Bazar {
       		// de la page dans le dictionnaire à 0
     			pair.setLeft(mots[0]);
     			pair.setRight(new AVLTree<String>());
-      		
+    			
       		// on parcours le reste du fichier ligne par ligne
       		while(reader.available()) {	
  
@@ -91,6 +91,7 @@ public class Bazar {
       		}
     			
     			// on ajoute la paire à la collection
+      		
     			collection.add(pair);
       		
       		// on ferme le fichier courant
