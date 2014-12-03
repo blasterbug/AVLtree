@@ -1,8 +1,8 @@
 import java.util.Vector;
 import IOFile.TextFileReader;
-import Tree.ABRTree;
 import Tree.AVLTree;
 import Union.UnionFind;
+
 
 /**
  * Programme principal
@@ -21,8 +21,9 @@ public class Bazar {
 			
 			// Variables
 			int k = Integer.parseInt(args[0]); // nombre de mots en commun si deux pages font partie du même chapitre
-      AVLTree<String> dictionnaire = new AVLTree<String>(); // dictionnaire 
+      AVLTree<String> dictionnaire = new AVLTree<String>(); // dictionnaire
       TextFileReader reader = new TextFileReader(); // lecteur de fichier
+      Vector<String> truc = new Vector<String>();
       // collection des paires (id_page, nb mots du dictionnaire dans la page)
       // elle est représentée sous la forme paire(arbre, nb mots)
       Vector<Pair<String, Integer>> collection = new Vector<Pair<String, Integer>>();
@@ -43,15 +44,17 @@ public class Bazar {
 	    		for(String c: cles) {
 	    			// on ajoute la clé courante au dictionnaire
 	    			dictionnaire.add(c);
+	    			truc.add(c);
 	    		}
 	    		
       	}
-      } else { //si le fichier du dictionnaire n'existe pas, erreur fatale
+      } else { // si le fichier du dictionnaire n'existe pas, erreur fatale
       	System.err.println("Erreur fatale : le fichier du dictionnaire n'existe pas");
       	System.exit(0); // arrêt du programme
       }
       
-      System.out.println(dictionnaire.contains("mama"));
+      System.out.println(dictionnaire.contains("tata"));
+      System.out.println(dictionnaire.toString());
       
       // Création des arbres & des classes 
       

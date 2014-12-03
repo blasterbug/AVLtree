@@ -74,7 +74,7 @@ public class ABRNode<T extends Comparable> {
 		//Si le noeud n'est pas une feuille
 		if( ! this.isLeaf()) {
 			//si l'élément courant correspond à l'élément recherché
-			if( this.tag == elt) {
+			if( this.tag.equals(elt)) {
 				//on renvoie vrai
 				return true;
 			} else {
@@ -87,7 +87,9 @@ public class ABRNode<T extends Comparable> {
 					return this.leftSon.contains(elt) || this.rightSon.contains(elt);
 				}
 			}
-		} else { //sinon, on renvoie faux
+		} else if (this.tag.equals(elt)) { //si le noeud est une feuille et que son élément courant correspond
+			return true;
+		} else { //sinon, l'étiquette recherchée n'est pas dans ce sous-arbre
 			return false;
 		}
 	}
