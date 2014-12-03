@@ -109,8 +109,8 @@ public class UnionFind<T>
         T representative2 = find( arg2 );
         try
         {
-            fathers.setElementAt( tags.indexOf( representative2 ),
-                                fathers.elementAt( tags.indexOf( representative1 ) ) );
+            fathers.setElementAt( tags.indexOf( representative1 ),
+                                fathers.elementAt( tags.indexOf( representative2 ) ) );
         }
         catch( ArrayIndexOutOfBoundsException ex)
         {
