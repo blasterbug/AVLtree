@@ -74,10 +74,12 @@ public class UnionFind<T> {
     public T find(T element) {
         try {
             int idx = tags.indexOf(element);
-            while (fathers.get(idx) != idx) {
-                idx = fathers.elementAt(idx);
+            if ( fathers.get( idx ).equals(idx) ) {
+                return tags.elementAt( idx );
             }
-            return tags.elementAt(idx);
+            else {
+                return find( tags.elementAt(fathers.elementAt(idx)) );
+            }
         }
         catch( ArrayIndexOutOfBoundsException ex )
         {
