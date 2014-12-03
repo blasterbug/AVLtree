@@ -13,7 +13,8 @@ import java.util.Vector;
  * @author Benjamin Sientzoff
  * @version 0.1 14 nov. 2014
  */
-public class UnionFind<T> {
+public class UnionFind<T>
+{
     /**
      * The tags table give element value.
      */
@@ -29,7 +30,8 @@ public class UnionFind<T> {
      * When creating a class, you need at least one element
      * @param elements The classes in the set
      */
-    public UnionFind(Collection<T> elements){
+    public UnionFind( Collection<T> elements )
+    {
         tags = new Vector<T>();
         fathers = new Vector<Integer>();
         int i = 0;
@@ -45,13 +47,15 @@ public class UnionFind<T> {
      * When creating a class, you need at least one element
      * @param elements The classes in a tabular
      */
-    public UnionFind(T[] elements){
+    public UnionFind( T[] elements )
+    {
         tags = new Vector<T>();
         fathers = new Vector<Integer>();
         int i = 0;
-        for(T element : elements) {
-            tags.add(i , element);
-            fathers.add(i ,i);
+        for(T element : elements)
+        {
+            tags.add( i , element );
+            fathers.add( i ,i );
             ++i;
         }
     }
@@ -61,8 +65,9 @@ public class UnionFind<T> {
      * @param element element to test
      * @return true if the element is here else false
      */
-    public boolean contains(T element){
-        return -1 != tags.indexOf(element);
+    public boolean contains( T element )
+    {
+        return -1 != tags.indexOf( element );
     }
 
 
@@ -71,13 +76,19 @@ public class UnionFind<T> {
      * @param element Element to get his representative
      * @return The <i>representative</i> of the class which contains element
      */
-    public T find(T element) {
-        try {
-            int idx = tags.indexOf(element);
-            while (fathers.get(idx) != idx) {
-                idx = fathers.elementAt(idx);
+    public T find( T element )
+    {
+        try
+        {
+            int idx = tags.indexOf( element );
+            if ( fathers.get( idx ).equals( idx ) )
+            {
+                return tags.elementAt( idx );
             }
-            return tags.elementAt(idx);
+            else
+            {
+                return find( tags.elementAt( fathers.elementAt( idx ) ) );
+            }
         }
         catch( ArrayIndexOutOfBoundsException ex )
         {
@@ -91,11 +102,14 @@ public class UnionFind<T> {
      * @param arg1 an element of the first class to join
      * @param arg2 an element of the second class to join
      */
-    public void union(T arg1, T arg2) {
-        T representative1 = find(arg1);
-        T representative2 = find(arg2);
-        try {
-            fathers.setElementAt(tags.indexOf(representative2), fathers.elementAt(tags.indexOf(representative1)));
+    public void union( T arg1, T arg2 )
+    {
+        T representative1 = find( arg1 );
+        T representative2 = find( arg2 );
+        try
+        {
+            fathers.setElementAt( tags.indexOf( representative2 ),
+                                fathers.elementAt( tags.indexOf( representative1 ) ) );
         }
         catch( ArrayIndexOutOfBoundsException ex)
         {
@@ -107,7 +121,8 @@ public class UnionFind<T> {
      * Get a string representation of a class
      * @return String representation of the class
      */
-    public String toString(){
+    public String toString()
+    {
         return fathers + "\n" + tags;
     }
 }
