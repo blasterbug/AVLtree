@@ -12,12 +12,12 @@ import java.util.regex.Pattern;
  * @version 0.1 6 nov. 2014
  */
 
-public class TextFileReader {
+public class TextFileReader
+{
     private BufferedReader readFile;
-    //private final Pattern wordSniper = Pattern.compile("[^\w]");
 
-    public TextFileReader(){
-
+    public TextFileReader()
+    {
     }
 
     /**
@@ -26,19 +26,27 @@ public class TextFileReader {
      * @param fileName Name of the file to open
      * @return True if file opened, else false
      */
-    public boolean openTextFile(String fileName) {
-        if(null != readFile ){
-            try {
+    public boolean openTextFile( String fileName )
+    {
+        if(null != readFile )
+        {
+            try
+            {
                 readFile.close();
-            } catch (IOException ex){
-                System.err.println(ex.getMessage());
+            }
+            catch (IOException ex)
+            {
+                System.err.println( ex.getMessage() );
             }
         }
-        try {
-            readFile = new BufferedReader( new FileReader(fileName));
+        try
+        {
+            readFile = new BufferedReader( new FileReader(fileName) );
             return true;
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+        }
+        catch (IOException ex)
+        {
+            System.err.println( ex.getMessage() );
             return false;
         }
     }
@@ -46,15 +54,22 @@ public class TextFileReader {
     /**
      * Close a file opened previously
      */
-    public void closeFile() {
-        if (null != readFile) {
-            try {
+    public void closeFile()
+    {
+        if (null != readFile)
+        {
+            try
+            {
                 readFile.close();
-            } catch (IOException ex) {
+            }
+            catch (IOException ex)
+            {
                 System.err.println(ex.getMessage());
             }
-        } else {
-            System.err.println("Pas de fichier ouvert");
+        }
+        else
+        {
+            System.err.println( "Pas de fichier ouvert" );
         }
     }
 
@@ -62,11 +77,15 @@ public class TextFileReader {
      * Are there words to read?
      * @return True if file is not ended, else false is returned
      */
-    public boolean available(){
-        try {
+    public boolean available()
+    {
+        try
+        {
             return readFile.ready();
-        } catch (IOException ex){
-            System.err.println(ex.getMessage());
+        }
+        catch ( IOException ex )
+        {
+            System.err.println( ex.getMessage() );
             return false;
         }
     }
@@ -75,16 +94,21 @@ public class TextFileReader {
      * Read words per line in the file
      * @return Array of String where each string is a word
      */
-    public String[] readWordsPerLine() {
+    public String[] readWordsPerLine()
+    {
 
-.        try {
+        try
+        {
             String line = "";
-            while(0 == line.length() && readFile.ready()){
+            while ( 0 == line.length() && readFile.ready() )
+            {
                 line = readFile.readLine();
             }
-            return line.split("[^\w]");
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+            return line.split( "[\\W]" );
+        }
+        catch ( IOException ex )
+        {
+            System.err.println( ex.getMessage() );
             return null;
         }
     }
