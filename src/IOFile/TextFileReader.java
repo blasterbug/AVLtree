@@ -104,12 +104,7 @@ public class TextFileReader
             {
                 line = readFile.readLine();
             }
-            String mots[] = line.split( "[.;,?!:'\"\\s]" );
-            for( String mot : mots )
-            {
-                System.out.println( mot );
-            }
-            return mots;
+            return line.split( "[.;,?!:'\"\\s]" );
         }
         catch ( IOException ex )
         {

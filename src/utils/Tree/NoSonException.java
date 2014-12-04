@@ -1,4 +1,4 @@
-package Tree;
+package utils.Tree;
 
 public class NoSonException extends Exception {
 

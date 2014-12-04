@@ -1,4 +1,4 @@
-package Tree;
+package utils.Tree;
 
 /**
  * AVL tree (Georgy Adelson-Velsky and Landis' tree, 

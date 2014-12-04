@@ -1,4 +1,4 @@
-package Tree;
+package utils.Tree;
 
 /**
  * Node in an AVL tree

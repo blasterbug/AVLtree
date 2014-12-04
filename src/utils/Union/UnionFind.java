@@ -1,4 +1,4 @@
-package Union;
+package utils.Union;
 
 import java.util.Collection;
 import java.util.Vector;
@@ -124,6 +124,12 @@ public class UnionFind<T>
      */
     public String toString()
     {
-        return fathers + "\n" + tags;
+        String ret = "";
+        for ( int i = 0 ; i < fathers.size() ; i++ )
+        {
+            ret += fathers.get(i) + "\n";
+            ret += i + " : [ " + tags.get(i) + " ]\n";
+        }
+        return ret;
     }
 }

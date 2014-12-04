@@ -1,7 +1,8 @@
 import java.util.Vector;
 import IOFile.TextFileReader;
-import Tree.AVLTree;
-import Union.UnionFind;
+import utils.Pair;
+import utils.Tree.AVLTree;
+import utils.Union.UnionFind;
 
 
 /**
@@ -121,7 +122,7 @@ public class Bazar {
 			}
 		}
 	}
-	
+	System.out.println(dictionnaire.toString());
 	// on affiche le contenu de classes-union
 	System.out.println(unionFind.toString());
 	

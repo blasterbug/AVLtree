@@ -114,7 +114,7 @@
 	    	 
 		\end{itemize}
 		
-		\subsection{Classe-Union}
+		\subsection{Classe-utils.Union}
 		    \paragraph{}{
 		    Une classe-union est une structure de données permettant stocker des ensembles disjoints d'éléments. ces sous-ensembles sont 
 		    appelés classes. Chaque classe a un représentant. Dans notre cas, les classes sont des arbres, leur représentant est alors
@@ -215,19 +215,19 @@
     	    	                  pages ensemble d'ensembles de mots
     	    	        variables : k entier
     	    	                    dictionnaire AVL de chaîne
-    	    	                    collection Vector de Pair(chaîne, AVL de chaîne)
-    	    	                    classeUnion ClasseUnion de Pair(chaîne, AVL de chaîne)
-    	    	                    pairA, pairB Pair(chaîne, AVL de chaîne)
+    	    	                    collection Vector de utils.Pair(chaîne, AVL de chaîne)
+    	    	                    classeUnion ClasseUnion de utils.Pair(chaîne, AVL de chaîne)
+    	    	                    pairA, pairB utils.Pair(chaîne, AVL de chaîne)
     	    	    debut
     	    	        dictionnaire := AVL vide;
-    	    	        collection := Vector de Pair(chaîne, AVL de chaîne) vide;
+    	    	        collection := Vector de utils.Pair(chaîne, AVL de chaîne) vide;
     	    	        
     	    	        pour chaque mot dans page faire
     	    	            dictionnaire.ajouter(mot);
     	    	        finpour
     	    	            
     	    	        pour chaque page dans pages faire
-    	    	            pair := Pair(chaîne, AVL de chaîne) vide;
+    	    	            pair := utils.Pair(chaîne, AVL de chaîne) vide;
     	    	            pair.element_gauche := premier_mot(page);
     	    	            pair.element_droit := AVL vide;
     	    	            

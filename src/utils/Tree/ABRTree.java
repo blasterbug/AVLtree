@@ -1,4 +1,4 @@
-package Tree;
+package utils.Tree;
 
 /**
  * A generic class for a Binary search tree
