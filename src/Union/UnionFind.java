@@ -81,14 +81,15 @@ public class UnionFind<T>
         try
         {
             int idx = tags.indexOf( element );
-            if ( fathers.get( idx ).equals( idx ) )
+            // si pas à la racine de l'arbre
+            if ( !( fathers.get( idx ).equals( idx ) ) )
             {
-                return tags.elementAt( idx );
+                // compresser le chemin
+                // remplacer le père de l'élément par son grand-père
+                fathers.set( tags.indexOf( element ), tags.indexOf( find( tags.elementAt( fathers.elementAt( idx ) ) ) ) );
             }
-            else
-            {
-                return find( tags.elementAt( fathers.elementAt( idx ) ) );
-            }
+            // retourner le père de l'élément, qui est forcément la racine
+             return tags.elementAt( fathers.elementAt( idx ) );
         }
         catch( ArrayIndexOutOfBoundsException ex )
         {
@@ -108,8 +109,8 @@ public class UnionFind<T>
         T representative2 = find( arg2 );
         try
         {
-            fathers.setElementAt( tags.indexOf( representative2 ),
-                                fathers.elementAt( tags.indexOf( representative1 ) ) );
+            fathers.setElementAt( tags.indexOf( representative1 ),
+                                fathers.elementAt( tags.indexOf( representative2 ) ) );
         }
         catch( ArrayIndexOutOfBoundsException ex)
         {

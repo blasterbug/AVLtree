@@ -4,8 +4,9 @@
 \usepackage{ifpdf}
 \usepackage{hyperref}
 \usepackage{amsmath}
+
 \title{\textit{Quel bazar!}}
-\author{Thomas \textsc{Minier}, Benjamin \textsc{Sientzoff}}
+\author{Thomas \textsc{Minier} \and Benjamin \textsc{Sientzoff}}
 \date{\today}
 \ifpdf
 \hypersetup{
@@ -23,55 +24,242 @@
 	\section*{Introduction}
 
 		\paragraph{}{
-		Dans le cadre du module d'Algorithmique et structure e données 3, il nous a été demandé de proposer un algorithme pour résoudre un problème précis. Il s'agit, en partant d'un ensemble de pages provenant d'un livre, de les regrouper en chapitres. pour cela, nous utiliserons un dictionnaire de mots et le critère suivant : si deux pages ont en commun au moins les \textit{k} mêmes mots du dictionnaire, alors elles appartiennent au même chapitre. }
+		Dans le cadre du module d'Algorithmique et structure de données 3, il nous a été demandé de proposer un algorithme pour résoudre un problème précis. Il s'agit, en partant d'un ensemble de pages provenant d'un livre, de les regrouper en chapitres. pour cela, nous utiliserons un dictionnaire de mots et le critère suivant : si deux pages ont en commun au moins les $k$ mêmes mots du dictionnaire, alors elles appartiennent au même chapitre.
+		}
 		
-		\paragraph{}{Pour résoudre ce problème, nous avons donc mis en place un programme Java articulé autour d'un algorithme principal et de plusieurs structures de données. Ces dernières ont été choisies pour rendre la résolution du problème la plus efficace possible, en minimisant la complexité de l’algorithme. Pour compiler,}
+		\paragraph{}{
+		Pour résoudre ce problème, nous avons donc mis en place un programme Java articulé autour d'un algorithme principal et de plusieurs structures de données. Ces dernières ont été choisies pour rendre la résolution du problème aussi efficace que possible. Nous avons donc cherché à minimiser la complexité de l'algorithme principal.
+		}
+		
+		\paragraph{}{
+		Pour compiler et utiliser notre programme procédez comme suit.
+		\begin{verbatim}
+			$ cd AVLTree
+			$ make
+			$ java -jar Bazar.jar <k> <fichier_dictionnaire> <page_1> <page_2> ... <page_n>
+		\end{verbatim}
+		}
 		
 		
 	\section{Structures utilisées}
+	
 		\subsection{Arbre AVL}
 		
 		\paragraph{}{Il s'agit de la structure d'arbre binaire avec équilibrage, mise au point par Adelson-Velsky et Landis. Cet AVL est là pour stocker les mots du dictionnaire et, par page, les mots du dictionnaire présent dans la page. Nous avons implémenté la structure vue en cours, avec des méthodes d'ajout et d'équilibrage par rotations. Nous avons aussi ajouté des méthodes non vues en cours, qui sont détaillées çi dessous :}
 		
 		\begin{itemize}
-			\item[$contains(T~elt) : booleen$] Cette fonction renvoie Vrai si le l'élément de type T passé en paramètre est présent dans l'arbre. Pour ce faire, elle procède à un parcours récursif de l'arbre. 
+			\item \verb|contains(T elt) : booleen| est une fonction qui renvoie Vrai si le l'élément de type T passé en paramètre est présent dans l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_contains}.
+			\begin{figure}
+	    	    \begin{verbatim}
+	    	    fonction contient
+	    	        entrée : elt element
+	    	                 noeud AVL
+	    	        sortie : Vrai si elt appartient à l'AVL
+	    	                 Faux sinon
+	    	    debut
+	    	        si (non estFeuille(noeud)) alors
+	    	            si (noeud.etq = elt alors
+	    	                retourner Vrai;
+	    	            sinon
+	    	                retourner noeud.fils_gauche.contains(elt) 
+	    	                           OU noeud.fils_droit.contains(elt);
+	    	        sinon si (noeud.etq = elt) alors
+	    	            retourner Vrai;
+	    	        sinon
+	    	            retourner Faux;
+	    	    fin
+	    	    \end{verbatim}
+	    	    \caption{Algorithme de la fonction \textit{contains} de AVL \label{algo_contains} }
+	    	\end{figure}
+			\item \verb|toString(): chaîne| est une fonction qui renvoie une représentation sous forme de chaîne de caractères de l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_toString_avl}.
 			
-			Si le nœud courant n'est pas une feuille, on vérifie si son étiquette correspond à l'élément passé en paramètre. Si c'est le cas, on renvoie Vrai. Sinon, on fait un appel récursif sur le fils gauche et le fils droit, en renvoyant l'union du résultats des appels à \textit{contains}.
+			\begin{figure}
+	    	    \begin{verbatim}
+	    	    fonction toString
+	    	        entrée : noeud AVL
+	    	        sortie : une chaîne de caractère
+	    	    debut
+	    	        si (estFeuille(noeud)) alors
+	    	            retourner noeud.etq;
+	    	        sinon
+	    	            retourner noeud.fils_gauche.toString() 
+	    	                        + noeud.etq 
+	    	                        + noeud.fils_droit.toString();
+	    	        finsi
+	    	    fin
+	    	    \end{verbatim}
+	    	    \caption{Algorithme de la fonction \textit{toString} de AVL \label{algo_toString_avl} }
+	    	\end{figure}
+	    	
+			\item \verb|nbCommuns(AVL arbre) : entier| est une fonction qui renvoie le nombre d'éléments en communs entre l'arbre courant et l'arbre passé en paramètre. L'algorithme de cette fonction est à la figure \ref{algo_nbCommuns}.
 			
-			Si le nœud courant est une feuille, alors on renvoie Vrai si son étiquette correspond à élément passé en paramètre, et Faux sinon.
-			\item[$]
+			\begin{figure}
+	    	    \begin{verbatim}
+	    	    fonction nbCommuns
+	    	        entrée : arbre : AVL
+	    	        sortie : un entier
+	    	        variables : i entier
+	    	    debut
+	    	        si (arbre.contains(noeud.etq)) alors
+	    	            i := 1;
+	    	        sinon
+	    	            i := 0;
+	    	        finsi
+	    	        retourner  i + noeud.fils_gauche.nbCommuns(arbre) 
+	    	                     + noeud.fils_droit.nbCommuns(arbre);
+	    	    fin
+	    	    \end{verbatim}
+	    	    \caption{Algorithme de la fonction \textit{nbCommuns} de AVL \label{algo_nbCommuns} }
+	    	 \end{figure}
+	    	 
 		\end{itemize}
 		
 		\subsection{Classe-Union}
-		% toto
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}	
+		    \paragraph{}{
+		    Une classe-union est une structure de données permettant stocker des ensembles disjoints d'éléments. ces sous-ensembles sont 
+		    appelés classes. Chaque classe a un représentant. Dans notre cas, les classes sont des arbres, leur représentant est alors
+		    la racine de cet arbre. L'avantage d'utiliser une telle structure est de pouvoir faire l'union des
+		    sous-ensembles simplement. Dans notre programme, les classes sont implémentées dans un tableau.
+		    }
+		    \begin{itemize}
+			    \item \verb|find( el : T) : T| est la première fonction pertinente d'une classe-union. Cette fonction permet de trouver 
+	    	le représentant d'une classe. Elle prend en paramètre un élément $t$ et retourne le représentant de la classe à
+	    	laquelle appartient $t$.
+	    	L'algorithme de cette fonction est à la figure \ref{algo_find}. Pour des questions de d'optimisation, cette fonction
+	    	compresse les chemins de l'arbre, on obtient alors une complexité amortie en $\Theta(1)$.
+	    	
+	    	\begin{figure}
+	    	    \begin{verbatim}
+	    	    fonction trouver
+	    	        entrées : x element
+	    	        sorties : element
+	    	    debut
+	    	        si ( x.parent != x ) alors
+	    	            x.parent := trouver( x );
+	    	        fin pour
+	    	        retourner x.parent
+	    	    fin
+	    	    \end{verbatim}
+	    	\caption{Algorithme de la fonction trouver de classe-union \label{algo_find}}
+	    	\end{figure}
+	    	
+	    	\item \verb|union( el1 : T, el2 : T)| permet de faire l'union de deux classes. Son algorithme est disponible à la 
+	        figure \ref{algo_union}. Une telle fonction prend en paramètre deux éléments et va unir leurs deux classes.
+	        Sa complexité est de l'ordre de $\Theta(1)$. En effet, la fonction \textit{trouver} a une complexité en $\Theta(1)$,
+	        puis cette fonction ne fait que des affections.
+
+	    	\begin{figure}
+	    	    \begin{verbatim}
+	    	    procédure unir
+	    	        entrées : x, y elements
+	    	        variables : p_x, p_y element
+	    	    debut
+	    	        p_x := trouver( x );
+	    	        p_y := trouver( y );
+	    	        p_y.parent := p_x;
+	    	    fin
+	    	    \end{verbatim}
+	    	\caption{Algorithme de la fonction unir de classe-union \label{algo_union}}
+	    	\end{figure}
+	    	\end{itemize}
 		
 		\subsection{Paire}
-		% toto
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}	
+	    	\paragraph{}{Cette structure représente une paire d'éléments, appelés respectivement partie gauche et partie droite. Elle dispose de quelques fonctions et procédures, que nous détaillons ci-dessous.}
+	    	
+	    	\begin{itemize}
+	    	
+	    		\item Des \textit{getters}, \verb|getLeft(): T| et \verb|getRight(): T|, et des \textit{setters}, \verb|setLeft(T elt)| et \verb|setRight(T elt)|, pour pouvoir accéder et modifier les éléments de la paire.
+	    		
+	    		\item \verb|toString() : chaîne| Cette fonction renvoie une représentation sous forme d'une chaîne de caractères de la paire. Elle concatène le partie gauche et la partie droite de la paire et retourne la chaîne ainsi formée.
+	    		
+	    	\end{itemize}
 		
-		\subsection{Scanner de fichiers}
-		% toto
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}
+		%\subsection{Scanner de fichiers}
+	    	%\paragraph{}{paragraphe sans titre}
 		
 	\section{Résolution du problème}
-		
-		% présentation des principales classes, méthodes
-		% à quoi elles servent?
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}
-		
+	
+		\paragraph{Quel bazar}{
+		Le problème que nous devons résoudre est le suivant : reformer les chapitres d'un livre en regroupant les pages 
+		de ce dernier si ils ont au moins $k$ même mots du dictionnaire en commun. La difficulté ici est d'identifier
+		les mots qui appartiennent au dictionnaire en lisant les pages puis de regrouper ces pages suivant les $k$ mots en
+		commun.
+		}
+	
+	
 		\subsection{Notre approche}
-		% l'observeur
-			\paragraph{titre du paragraphe}{contenu}
-			\paragraph{}{paragraphe sans titre}
-		\\
+		
+			\paragraph{}{
+			Évidemment, une approche basique du problème consisterais à produire un algorithme (glouton) avec une complexité
+			exorbitante. Mais soyons plus intelligent et penchons nous sur des structures efficaces, comme celles présentées
+			dans la première partie de ce rapport. Tout d'abord pour les recherches des mots, en utilisant un arbre et non
+			un tableau, ou une autre structure de données linéaire de type file ou liste chaînée, on passe d'une complexité
+			en $\Theta(n)$ à $\Theta(\log(n))$, $n$ étant le nombre de mots dans le dictionnaire.
+			}
+			\paragraph{}{
+			Ensuite, pour les pages, au lieu de garder en mémoire l'intégralité de ces dernières, stockons les mots qu'elles
+			ont en commun avec le dictionnaire. Les autres mots ne servent à rien. Après la même question revient, tableau
+			ou arbre ? Arbre! Potentiellement, comme pour le dictionnaire, on va effectuer des recherches sur les mots des pages.
+			Et on peut estimer le nombre de telles recherches de l'ordre des $k \times n^{2}$. \\
+			En effet, on va obligatoirement chercher les $k$ mots dans le dictionnaire. En suite pour ces $k$ mots, on va comparer
+			les pages obligatoirement deux par deux. Donc avec $n$ le nombre de pages, on obtient $n^{2}$ comparaisons.
+			}
+
 		\subsection{Algorithme}
-			\paragraph{titre du paragraphe}{contenu}
-			\paragraph{}{paragraphe sans titre}	
+			\paragraph{}{
+    			\begin{figure}
+    	    	    \begin{verbatim}
+    	    	    Algorithme principal
+    	    	        entrées : k entier
+    	    	                  dico ensemble de mots
+    	    	                  pages ensemble d'ensembles de mots
+    	    	        variables : k entier
+    	    	                    dictionnaire AVL de chaîne
+    	    	                    collection Vector de Pair(chaîne, AVL de chaîne)
+    	    	                    classeUnion ClasseUnion de Pair(chaîne, AVL de chaîne)
+    	    	                    pairA, pairB Pair(chaîne, AVL de chaîne)
+    	    	    debut
+    	    	        dictionnaire := AVL vide;
+    	    	        collection := Vector de Pair(chaîne, AVL de chaîne) vide;
+    	    	        
+    	    	        pour chaque mot dans page faire
+    	    	            dictionnaire.ajouter(mot);
+    	    	        finpour
+    	    	            
+    	    	        pour chaque page dans pages faire
+    	    	            pair := Pair(chaîne, AVL de chaîne) vide;
+    	    	            pair.element_gauche := premier_mot(page);
+    	    	            pair.element_droit := AVL vide;
+    	    	            
+    	    	            pour chaque mot dans page faire
+    	    	                si (dictionnaire.contient(mot)) faire
+    	    	                    pair.element_doit.ajouter(mot);
+    	    	                finsi
+    	    	            finpour
+    	    	            
+    	    	            collection.ajouter(pair);
+    	    	        finpour
+    	    	        
+    	    	        classeUnion := ClasseUnion(collection);
+    	    	        
+    	    	        pour i de 0 à taille(collection) - 1 faire
+    	    	            pairA := collection[i]
+    	    	            
+    	    	            pour j de 0 à taille(collection) - 1 faire
+    	    	                pairB := collection[j]
+    	    	                si (pairA.element_droit.nbCommuns(pairB.element_doit) >= k)
+    	    	                    classeUnion.union(pairA, pairB);
+    	    	                finsi
+    	    	            finpour
+    	    	        finpour
+    	    	        
+    	    	        afficher(classeUnion);
+    	    	        
+    	    	    fin
+    	    	    \end{verbatim}
+    	    	\caption{Algorithme principal \label{algo_main}}
+    	    	\end{figure}
+	    	}	
 			
 	\section*{Conclusion}
 		\paragraph{}{je conclu}
