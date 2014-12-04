@@ -35,14 +35,9 @@
 		Pour compiler et utiliser notre programme procédez comme suit.
 		\begin{verbatim}
 			$ cd AVLTree
-			$ ant
-			$ cd bin
-			$ java bazar <k> <fichier_dictionnaire> <page_1> <page_2> ... <page_n>
+			$ make
+			$ java -jar Bazar.jar <k> <fichier_dictionnaire> <page_1> <page_2> ... <page_n>
 		\end{verbatim}
-		}
-		
-		\subparagraph{}{
-		Si le programme \textit{Ant} n'est pas installé sur votre ordinateur il est soit possible de compiler le programme en la remplaçant par \textit{make} soit avec la commande suivante : \verb|javac ....| .
 		}
 		
 		
@@ -53,11 +48,12 @@
 		\paragraph{}{Il s'agit de la structure d'arbre binaire avec équilibrage, mise au point par Adelson-Velsky et Landis. Cet AVL est là pour stocker les mots du dictionnaire et, par page, les mots du dictionnaire présent dans la page. Nous avons implémenté la structure vue en cours, avec des méthodes d'ajout et d'équilibrage par rotations. Nous avons aussi ajouté des méthodes non vues en cours, qui sont détaillées çi dessous :}
 		
 		\begin{itemize}
-			\item \verb|contains(T elt) : booleen| Cette fonction renvoie Vrai si le l'élément de type T passé en paramètre est présent dans l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_contains}.
+			\item \verb|contains(T elt) : booleen| est une fonction qui renvoie Vrai si le l'élément de type T passé en paramètre est présent dans l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_contains}.
 			\begin{figure}
 	    	    \begin{verbatim}
-	    	    fonction contains
-	    	        entrée : elt : T
+	    	    fonction contient
+	    	        entrée : elt element
+	    	                 noeud AVL
 	    	        sortie : Vrai si elt appartient à l'AVL
 	    	                 Faux sinon
 	    	    debut
@@ -75,12 +71,12 @@
 	    	    \end{verbatim}
 	    	    \caption{Algorithme de la fonction \textit{contains} de AVL \label{algo_contains} }
 	    	\end{figure}
-			\item \verb|toString(): chaîne| Cette fonction renvoie une représentation sous forme de chaîne de caractères de l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_toString_avl}.
+			\item \verb|toString(): chaîne| est une fonction qui renvoie une représentation sous forme de chaîne de caractères de l'arbre. L'algorithme de cette fonction est à la figure \ref{algo_toString_avl}.
 			
 			\begin{figure}
 	    	    \begin{verbatim}
 	    	    fonction toString
-	    	        entrée : aucune
+	    	        entrée : noeud AVL
 	    	        sortie : une chaîne de caractère
 	    	    debut
 	    	        si (estFeuille(noeud)) alors
@@ -95,15 +91,15 @@
 	    	    \caption{Algorithme de la fonction \textit{toString} de AVL \label{algo_toString_avl} }
 	    	\end{figure}
 	    	
-			\item \verb|nbCommuns(AVL arbre) : entier| Cette  fonction renvoie le nombre d'éléments en communs entre l'arbre courant et l'arbre passé en paramètre. L'algorithme de cette fonction est à la figure \ref{algo_nbCommuns}.
+			\item \verb|nbCommuns(AVL arbre) : entier| est une fonction qui renvoie le nombre d'éléments en communs entre l'arbre courant et l'arbre passé en paramètre. L'algorithme de cette fonction est à la figure \ref{algo_nbCommuns}.
 			
 			\begin{figure}
 	    	    \begin{verbatim}
 	    	    fonction nbCommuns
 	    	        entrée : arbre : AVL
 	    	        sortie : un entier
+	    	        variables : i entier
 	    	    debut
-	    	        entier i;
 	    	        si (arbre.contains(noeud.etq)) alors
 	    	            i := 1;
 	    	        sinon
@@ -130,7 +126,7 @@
 	    	le représentant d'une classe. Elle prend en paramètre un élément $t$ et retourne le représentant de la classe à
 	    	laquelle appartient $t$.
 	    	L'algorithme de cette fonction est à la figure \ref{algo_find}. Pour des questions de d'optimisation, cette fonction
-	    	compresse les chemins de l'arbre.
+	    	compresse les chemins de l'arbre, on obtient alors une complexité amortie en $\Theta(1)$.
 	    	
 	    	\begin{figure}
 	    	    \begin{verbatim}
@@ -138,8 +134,8 @@
 	    	        entrées : x element
 	    	        sorties : element
 	    	    debut
-	    	        si x.parent != x
-	    	            x.parent := trouver( x )
+	    	        si ( x.parent != x ) alors
+	    	            x.parent := trouver( x );
 	    	        fin pour
 	    	        retourner x.parent
 	    	    fin
@@ -149,16 +145,18 @@
 	    	
 	    	\item \verb|union( el1 : T, el2 : T)| permet de faire l'union de deux classes. Son algorithme est disponible à la 
 	        figure \ref{algo_union}. Une telle fonction prend en paramètre deux éléments et va unir leurs deux classes.
+	        Sa complexité est de l'ordre de $\Theta(1)$. En effet, la fonction \textit{trouver} a une complexité en $\Theta(1)$,
+	        puis cette fonction ne fait que des affections.
 
 	    	\begin{figure}
 	    	    \begin{verbatim}
-	    	    fonction unir
+	    	    procédure unir
 	    	        entrées : x, y elements
 	    	        variables : p_x, p_y element
 	    	    debut
-	    	        p_x := trouver( x ) 
-	    	        p_y := trouver( y )
-	    	        p_y.parent := p_x
+	    	        p_x := trouver( x );
+	    	        p_y := trouver( y );
+	    	        p_y.parent := p_x;
 	    	    fin
 	    	    \end{verbatim}
 	    	\caption{Algorithme de la fonction unir de classe-union \label{algo_union}}
@@ -166,7 +164,7 @@
 	    	\end{itemize}
 		
 		\subsection{Paire}
-	    	\paragraph{}{cette structure représente une paire d'éléments, appelés respectivement partie gauche et partie droite. Elle dispose de quelques fonctions et procédures, que nous détaillons ci-dessous.}
+	    	\paragraph{}{Cette structure représente une paire d'éléments, appelés respectivement partie gauche et partie droite. Elle dispose de quelques fonctions et procédures, que nous détaillons ci-dessous.}
 	    	
 	    	\begin{itemize}
 	    	
@@ -192,10 +190,10 @@
 		\subsection{Notre approche}
 		
 			\paragraph{}{
-			Évidemment, une approche basique du problème consisterai à produire un algorithme (glouton) avec une complexité
+			Évidemment, une approche basique du problème consisterais à produire un algorithme (glouton) avec une complexité
 			exorbitante. Mais soyons plus intelligent et penchons nous sur des structures efficaces, comme celles présentées
 			dans la première partie de ce rapport. Tout d'abord pour les recherches des mots, en utilisant un arbre et non
-			un tableau ou une autre structure de données linéaire de type file ou liste chaînée, on passer d'une complexité
+			un tableau, ou une autre structure de données linéaire de type file ou liste chaînée, on passe d'une complexité
 			en $\Theta(n)$ à $\Theta(\log(n))$, $n$ étant le nombre de mots dans le dictionnaire.
 			}
 			\paragraph{}{
@@ -203,11 +201,65 @@
 			ont en commun avec le dictionnaire. Les autres mots ne servent à rien. Après la même question revient, tableau
 			ou arbre ? Arbre! Potentiellement, comme pour le dictionnaire, on va effectuer des recherches sur les mots des pages.
 			Et on peut estimer le nombre de telles recherches de l'ordre des $k \times n^{2}$. \\
-			En effet, on va obligatoirement chercher les $k$ mots
+			En effet, on va obligatoirement chercher les $k$ mots dans le dictionnaire. En suite pour ces $k$ mots, on va comparer
+			les pages obligatoirement deux par deux. Donc avec $n$ le nombre de pages, on obtient $n^{2}$ comparaisons.
 			}
 
 		\subsection{Algorithme}
-			\paragraph{}{paragraphe sans titre}	
+			\paragraph{}{
+    			\begin{figure}
+    	    	    \begin{verbatim}
+    	    	    Algorithme principal
+    	    	        entrées : k entier
+    	    	                  dico ensemble de mots
+    	    	                  pages ensemble d'ensembles de mots
+    	    	        variables : k entier
+    	    	                    dictionnaire AVL de chaîne
+    	    	                    collection Vector de Pair(chaîne, AVL de chaîne)
+    	    	                    classeUnion ClasseUnion de Pair(chaîne, AVL de chaîne)
+    	    	                    pairA, pairB Pair(chaîne, AVL de chaîne)
+    	    	    debut
+    	    	        dictionnaire := AVL vide;
+    	    	        collection := Vector de Pair(chaîne, AVL de chaîne) vide;
+    	    	        
+    	    	        pour chaque mot dans page faire
+    	    	            dictionnaire.ajouter(mot);
+    	    	        finpour
+    	    	            
+    	    	        pour chaque page dans pages faire
+    	    	            pair := Pair(chaîne, AVL de chaîne) vide;
+    	    	            pair.element_gauche := premier_mot(page);
+    	    	            pair.element_droit := AVL vide;
+    	    	            
+    	    	            pour chaque mot dans page faire
+    	    	                si (dictionnaire.contient(mot)) faire
+    	    	                    pair.element_doit.ajouter(mot);
+    	    	                finsi
+    	    	            finpour
+    	    	            
+    	    	            collection.ajouter(pair);
+    	    	        finpour
+    	    	        
+    	    	        classeUnion := ClasseUnion(collection);
+    	    	        
+    	    	        pour i de 0 à taille(collection) - 1 faire
+    	    	            pairA := collection[i]
+    	    	            
+    	    	            pour j de 0 à taille(collection) - 1 faire
+    	    	                pairB := collection[j]
+    	    	                si (pairA.element_droit.nbCommuns(pairB.element_doit) >= k)
+    	    	                    classeUnion.union(pairA, pairB);
+    	    	                finsi
+    	    	            finpour
+    	    	        finpour
+    	    	        
+    	    	        afficher(classeUnion);
+    	    	        
+    	    	    fin
+    	    	    \end{verbatim}
+    	    	\caption{Algorithme principal \label{algo_main}}
+    	    	\end{figure}
+	    	}	
 			
 	\section*{Conclusion}
 		\paragraph{}{je conclu}
