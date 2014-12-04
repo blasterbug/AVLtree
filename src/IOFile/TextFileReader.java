@@ -76,12 +76,13 @@ public class TextFileReader {
      * @return Array of String where each string is a word
      */
     public String[] readWordsPerLine() {
-        try {
+
+.        try {
             String line = "";
             while(0 == line.length() && readFile.ready()){
                 line = readFile.readLine();
             }
-            return line.split(" ");
+            return line.split("[^\w]");
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             return null;
