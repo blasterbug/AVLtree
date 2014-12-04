@@ -3,6 +3,7 @@
 \usepackage[frenchb]{babel}
 \usepackage{ifpdf}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \title{\textit{Quel bazar!}}
 \author{Thomas \textsc{Minier}, Benjamin \textsc{Sientzoff}}
 \date{\today}
@@ -20,34 +21,58 @@
 	\newpage % passer à la page suivante
 	
 	\section*{Introduction}
-	% présenter le cadre du projet
-	% présenter le prjet en lui-même, idées de base, inspiration
-	\paragraph{}{le paragraphe d'intro}
-	
-	\section{Implémentation}
-	
+
+		\paragraph{}{
+		Dans le cadre du module d'Algorithmique et structure e données 3, il nous a été demandé de proposer un algorithme pour résoudre un problème précis. Il s'agit, en partant d'un ensemble de pages provenant d'un livre, de les regrouper en chapitres. pour cela, nous utiliserons un dictionnaire de mots et le critère suivant : si deux pages ont en commun au moins les \textit{k} mêmes mots du dictionnaire, alors elles appartiennent au même chapitre. }
+		
+		\paragraph{}{Pour résoudre ce problème, nous avons donc mis en place un programme Java articulé autour d'un algorithme principal et de plusieurs structures de données. Ces dernières ont été choisies pour rendre la résolution du problème la plus efficace possible, en minimisant la complexité de l’algorithme. Pour compiler,}
+		
+		
+	\section{Structures utilisées}
+		\subsection{Arbre AVL}
+		
+		\paragraph{}{Il s'agit de la structure d'arbre binaire avec équilibrage, mise au point par Adelson-Velsky et Landis. Cet AVL est là pour stocker les mots du dictionnaire et, par page, les mots du dictionnaire présent dans la page. Nous avons implémenté la structure vue en cours, avec des méthodes d'ajout et d'équilibrage par rotations. Nous avons aussi ajouté des méthodes non vues en cours, qui sont détaillées çi dessous :}
+		
+		\begin{itemize}
+			\item[$contains(T~elt) : booleen$] Cette fonction renvoie Vrai si le l'élément de type T passé en paramètre est présent dans l'arbre. Pour ce faire, elle procède à un parcours récursif de l'arbre. 
+			
+			Si le nœud courant n'est pas une feuille, on vérifie si son étiquette correspond à l'élément passé en paramètre. Si c'est le cas, on renvoie Vrai. Sinon, on fait un appel récursif sur le fils gauche et le fils droit, en renvoyant l'union du résultats des appels à \textit{contains}.
+			
+			Si le nœud courant est une feuille, alors on renvoie Vrai si son étiquette correspond à élément passé en paramètre, et Faux sinon.
+			\item[$]
+		\end{itemize}
+		
+		\subsection{Classe-Union}
+		% toto
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}	
+		
+		\subsection{Paire}
+		% toto
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}	
+		
+		\subsection{Scanner de fichiers}
+		% toto
+		\paragraph{titre du paragraphe}{contenu}
+		\paragraph{}{paragraphe sans titre}
+		
+	\section{Résolution du problème}
+		
 		% présentation des principales classes, méthodes
 		% à quoi elles servent?
 		\paragraph{titre du paragraphe}{contenu}
 		\paragraph{}{paragraphe sans titre}
 		
-		\subsection{Premier pattern}
+		\subsection{Notre approche}
 		% l'observeur
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}
-		
-	\section{Utilisation Nono-1}
-		\subsection{Second pattern}
-		% le décorateur
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}
-		
-		\subsection{Troisième pattern}
-		% toto
-		\paragraph{titre du paragraphe}{contenu}
-		\paragraph{}{paragraphe sans titre}
-	
-	
+			\paragraph{titre du paragraphe}{contenu}
+			\paragraph{}{paragraphe sans titre}
+		\\
+		\subsection{Algorithme}
+			\paragraph{titre du paragraphe}{contenu}
+			\paragraph{}{paragraphe sans titre}	
+			
 	\section*{Conclusion}
 		\paragraph{}{je conclu}
 		

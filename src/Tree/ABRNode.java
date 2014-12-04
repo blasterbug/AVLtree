@@ -210,11 +210,6 @@ public class ABRNode<T extends Comparable> {
 			i += rightSon.nbCommuns(nodeB);
 		}
 		
-		if(this.isLeaf()) {
-			if(nodeB.contains(tag)) {
-				i++;
-			}
-		}
 		return i;
 	}
 	
