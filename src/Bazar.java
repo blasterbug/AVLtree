@@ -108,22 +108,25 @@ public class Bazar {
 	// on procède aux unions des classes pour créer les chapitres
 	
 	// on parcours les classes via la collection
-	for(int ind = 0; ind < collection.size() - 1; ind++) {
+	for(int ind = 0; ind < collection.size(); ind++) {
 		// on récupère la paire courante
 		Pair<String, AVLTree<String>> pairA = collection.get(ind);
 		
 		// on parcours le reste des pairs
-		for(int j = 0; j < collection.size() - 1; j++) {
+		for(int j = 0; j < collection.size(); j++) {
 			// on récupère l'autre paire courante
 			Pair<String, AVLTree<String>> pairB = collection.get(j);
 			// si on peut unir les deux paires, on le fait
-			if(pairA.getRight().nbCommuns(pairB.getRight()) >= k) {
+			if( ind != j
+					&&	pairA.getRight().nbCommuns(pairB.getRight()) >= k
+					//&& !(unionFind.find(pairA).equals(unionFind.find(pairB) ) )
+			  )
+			{
 				System.out.println("Union de " + pairA.getLeft() + " et " + pairB.getLeft());
 				unionFind.union(pairA, pairB);
 			}
 		}
 	}
-	System.out.println(dictionnaire.toString());
 	// on affiche le contenu de classes-union
 	System.out.println(unionFind.toString());
 	
