@@ -1,0 +1,3 @@
+9
+Le minimum à faire est d'utiliser un indice qui commence a 0 et va jusqu'au maximum. Le couplage
+sera alors complet.

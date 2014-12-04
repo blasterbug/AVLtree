@@ -1,0 +1,2 @@
+5
+Dans cet article, on recherche un algorithme qui identifie le maximum d'un ensemble d'entiers.

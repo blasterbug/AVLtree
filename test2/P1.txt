@@ -1,0 +1,2 @@
+1
+Cet article est identifie par la reference [PLC78]. Il presente un algorithme de recherche efficace.

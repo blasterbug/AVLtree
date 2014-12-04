@@ -1,0 +1,2 @@
+8
+Cet indice de boucle doit faire un parcours du minimum au maximum des valeurs.

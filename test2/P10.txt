@@ -1,0 +1,2 @@
+10
+Pour baisser la complexite de cet algorithme qui recherche le couplage, il faut eliminer une boucle.
