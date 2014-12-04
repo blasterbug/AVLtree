@@ -117,12 +117,11 @@ public class Bazar {
 			// on récupère l'autre paire courante
 			Pair<String, AVLTree<String>> pairB = collection.get(j);
 			// si on peut unir les deux paires, on le fait
-			if( ind != j
-					&&	pairA.getRight().nbCommuns(pairB.getRight()) >= k
-					//&& !(unionFind.find(pairA).equals(unionFind.find(pairB) ) )
+			if( ( ind != j )
+				&& ( pairA.getRight().nbCommuns(pairB.getRight()) >= k )
+				&& ( !(unionFind.find(pairA).equals(unionFind.find(pairB) ) ) )
 			  )
 			{
-				System.out.println("Union de " + pairA.getLeft() + " et " + pairB.getLeft());
 				unionFind.union(pairA, pairB);
 			}
 		}
