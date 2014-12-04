@@ -119,7 +119,7 @@ public class Bazar {
 			// si on peut unir les deux paires, on le fait
 			if( ( ind != j )
 				&& ( pairA.getRight().nbCommuns(pairB.getRight()) >= k )
-				&& ( !(unionFind.find(pairA).equals(unionFind.find(pairB) ) ) )
+				&& ( !(unionFind.find(pairA).equals(unionFind.find(pairB)) ) )
 			  )
 			{
 				unionFind.union(pairA, pairB);

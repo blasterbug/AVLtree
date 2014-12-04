@@ -102,7 +102,7 @@ public class TextFileReader
             String line = "";
             while ( 0 == line.length() && readFile.ready() )
             {
-                line = readFile.readLine();
+                line = readFile.readLine().toLowerCase();
             }
             return line.split( "[.;,?!:'\"\\s]" );
         }
