@@ -272,13 +272,13 @@
 		 	L'union et la recherche des pères dans la classe-union sont en $\Theta(1)$ grâce à la compression des
 		 	chemins notamment. Là où la complexité de notre algorithme est important c'est lorsqu'on compare les pages
 		 	pour reconstituer les chapitres. Des petites optimisation permettent de gagner du temps. Par exemple,
-		 	on ne va pas comparer la page avec elle même et on ne comparera pas deux pages qui sont déjà dans le
+		 	on ne va pas comparer la page avec elle-même et on ne comparera pas deux pages qui sont déjà dans le
 		 	même chapitre.
-		 	} % todo
+		 	}
 		 	\paragraph{}{
 		 	La comparaison des pages deux à deux est donc en $\Theta(n^{2})$, ensuite l'accès à leur
-		 	dictionnaire est au plus en $k\log(k)$. On obtient alors $n^{2}( \sum_{1}^{n} k\log(k))$.
-		 	Étant donné qu'on cherche une majoration grossière, retenons que la complexité final de 
+		 	dictionnaire est au plus en $k\log(k)$. On obtient alors $n^{2}( \sum_{1}^{n} k\log(k))$ opérations.
+		 	Étant donné qu'on cherche une majoration grossière, retenons que la complexité finale de 
 		 	notre programme est en $\Theta(n^{2})$.
 		 	}
 		 	\paragraph{}{
@@ -364,7 +364,7 @@
 		\paragraph{}{
 		Enfin, ce projet a été un bon moyen de nous frotter à des problèmes difficiles qui peuvent
 		se résoudre plus aisément grâce aux structures de données vu en cours. De plus, les 
-		implémentées nous à permis de nous familiariser avec, en particulier les arbres AVL et
+		implémenter nous a permis de nous familiariser avec, en particulier les arbres AVL et
 		les classes-union.
 		}
 		
