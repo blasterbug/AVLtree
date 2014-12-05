@@ -13,5 +13,5 @@ Assuming you're ruuning an unix system with java, javac and make installed.
 
     $ make
     
-    $ java -jar Bzar.jar <k> <dictionnary> <page1> <page2W ...
+    $ java -jar Bzar.jar <k> <dictionnary> <page1> <page2> ...
 
