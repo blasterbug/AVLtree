@@ -239,7 +239,7 @@
 			}
 			\paragraph{}{
 			Ensuite, pour les pages, au lieu de garder en mémoire l'intégralité de ces dernières, stockons 
-			uniquement les mots qu'elles ont en commun avec le dictionnaire. La même question revient esnuite, structure linéaire
+			uniquement les mots qu'elles ont en commun avec le dictionnaire. La même question revient ensuite, structure linéaire
 			ou arbre ? Arbre ! Potentiellement, comme pour le dictionnaire, on va effectuer des recherches sur les mots des pages.
 			Et on peut estimer le nombre de telles recherches de l'ordre de $k \times n^{2}$. \\
 			En effet, on va obligatoirement chercher les $k$ mots dans le dictionnaire. Ensuite pour ces $k$ mots, on va comparer
@@ -249,12 +249,12 @@
 		\subsection{Résolution}
 			\paragraph{}{
 			L'algorithme à la figure \ref{algo_main} correspond à l'algorithme qui regroupe les
-			pages en chapitre, d'après les critères énoncés précédemment.On peut y extraire 
+			pages en chapitre, d'après les critères énoncés précédemment. On en retiendra 
 			les grandes étapes suivantes :
 			\begin{enumerate}
 				\item Lecture du dictionnaire, stockage dans un AVL.
 				\item Pour chaque page, parcourir la page et identifier les mots qu'elle
-				a en commun avec le dictionnaire, placer ses mots dans un AVL.
+				a en commun avec le dictionnaire, puis placer ses mots dans un AVL.
 				\item On place toutes les pages dans une classe-union.
 				\item Pour chaque page, on test combien de mots elle a en commun avec les autres.
 				Si elle en a au moins $k$, on réuni les deux pages (union de classes).
@@ -270,7 +270,7 @@
 		 	Ensuite, la construction des arbres des pages se fait en $\Theta(n \times q_{i} \times \log(k))$.
 		 	$\log(k)$ car on va chercher les mots dans le dictionnaire.
 		 	L'union et la recherche des pères dans la classe-union sont en $\Theta(1)$ grâce à la compression des
-		 	chemins notamment. Là où la complexité de notre algorithme est important c'est lorsqu'on compare les pages
+		 	chemins notamment. Là où la complexité de notre algorithme est importante, c'est lorsqu'on compare les pages
 		 	pour reconstituer les chapitres. Des petites optimisation permettent de gagner du temps. Par exemple,
 		 	on ne va pas comparer la page avec elle-même et on ne comparera pas deux pages qui sont déjà dans le
 		 	même chapitre.
@@ -346,24 +346,24 @@
 		\paragraph{}{
 		Pour conclure, notre algorithme permet de fournir une solution plutôt efficace, tout de
 		même de l'ordre de $\Theta(n^{2})$. Ce qui n'est pas révolutionnaire, donc pas de publication
-		pour le moment. D'autre part nous n'avons pas répondu à la seconde question qui était de trouver les
+		pour le moment. D'autre part, nous n'avons pas répondu à la seconde question qui était de trouver les
 		mots uniquement présent dans un chapitre. Mais nous pouvons donner un début de réponse. 
 		}
 		
-			\subparagraph{Les propres aux pages}{
-			Dans notre programme, pour chaque page stockons également dans une arbre AVL tous
+			\subparagraph{Les mots propres aux pages}{
+			Dans notre programme, pour chaque page, nous stockons également dans une arbre AVL tous
 			les mots de la page (et qui ne sont pas dans le dictionnaire, car ils sont forcément
 			dans les autres chapitres, à priori). En suite, lorsqu'on compare les pages deux à 
 			deux, supprimons des mots de la pages les mots de l'autre page. Ainsi, après avoir 
-			comparé toutes nos pages, les AVLs qui contenaient tous les mots de la pages, ne
+			comparé toutes nos pages, les AVLs qui contenaient tous les mots de la pages ne
 			contiennent plus que les mots uniquement présent dans cette dernière et non dans les
-			autres aussi. Un tel algorithme aurait, une complexité de l'ordre de 
+			autres. Un tel algorithme aurait une complexité de l'ordre de 
 			$\Theta(n^2 \times \log(q_i))$.
 			}
 		
 		\paragraph{}{
-		Enfin, ce projet a été un bon moyen de nous frotter à des problèmes difficiles qui peuvent
-		se résoudre plus aisément grâce aux structures de données vu en cours. De plus, les 
+		En conclusion, ce projet aura été un bon moyen de nous frotter à des problèmes difficiles qui peuvent
+		se résoudre plus aisément grâce aux structures de données vues en cours. De plus, les 
 		implémenter nous a permis de nous familiariser avec, en particulier les arbres AVL et
 		les classes-union.
 		}
