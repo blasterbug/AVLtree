@@ -26,29 +26,32 @@
 		\paragraph{}{
 		Dans le cadre du module d'algorithmique et structure de données 3, il nous a été demandé de 
 		proposer un algorithme pour résoudre un problème précis. Il s'agit, en partant d'un ensemble 
-		de pages provenant d'un livre, de les regrouper en chapitres. pour cela, nous utiliserons 
+		de pages provenant d'un livre, de les regrouper en chapitres. Pour cela, nous utiliserons 
 		un dictionnaire de mots et le critère suivant : si deux pages ont en commun au moins les 
 		$k$ mêmes mots du dictionnaire, alors elles appartiennent au même chapitre. \newline
 		Nous devons également identifier, pour chaque chapitre, les mots propre à ce dernier.
 		}
 		
 		\paragraph{}{
-		Pour résoudre ce problème, nous avons donc mis en place un programme Java articulé autour 
-		d'un algorithme principal utilisant plusieurs structures de données. Ces dernières ont été 
-		choisies pour rendre la résolution du problème aussi efficace que possible. Nous avons 
-		donc cherché à minimiser la complexité de l'algorithme principal par l'utilisation de 
-		structures efficaces.
+		Pour résoudre ce problème, nous avons mis en place un programme écrit en Java articulé autour 
+		d'un algorithme principal utilisant plusieurs structures de données, présentées dans une
+		première partie. Ces dernières ont été choisies pour rendre la résolution du problème 
+		aussi efficace que possible. Nous avons donc cherché à minimiser la complexité de 
+		l'algorithme principal par l'utilisation de structures efficaces. Notre démarche pour répondre
+		au problème est détaillé dans une seconde partie.
 		}
 		
 		\paragraph{}{
-		Pour compiler et utiliser notre programme procédez comme suit.
+		Pour compiler et utiliser notre programme, procédez comme suit. En supposant que vous utiliser
+		un système \textsc{unix} avec les programmes \textit{java}, \textit{javac} et \textit{make} d'installés.
 		\begin{verbatim}
-			$ cd AVLTree
-			$ make
-			$ java -jar Bazar.jar <k> <dictionnaire> <page_1> <page_2> ... <page_n>
+		$ cd AVLTree
+		$ make
+		$ java -jar Bazar.jar <k> <dictionnaire> <page_1> <page_2> ... <page_n>
 		\end{verbatim}
 		}
 		
+	\newpage
 		
 	\section{Structures utilisées}
 	
@@ -63,13 +66,13 @@
 		}
 		
 		\begin{itemize}
-			\item \verb|contains( elt T ) : booleen| est une fonction qui renvoie Vrai si le 
+			\item \verb|contient( elt T ) : booleen| est une fonction qui renvoie Vrai si le 
 			l'élément de type T passé en paramètre est présent dans l'arbre. L'algorithme de
 			cette fonction est à la figure \ref{algo_contains}.
 			\begin{figure}
 	    	    \begin{verbatim}
 	    	    fonction contient
-	    	        entrée : elt element
+	    	        entrée : elt element,
 	    	                 noeud AVL
 	    	        sortie : Vrai si elt appartient à l'AVL
 	    	                 Faux sinon
@@ -96,7 +99,7 @@
 	    	    \begin{verbatim}
 	    	    fonction toString
 	    	        entrée : noeud AVL
-	    	        sortie : une chaîne de caractère
+	    	        sortie : une chaîne de caractères
 	    	    debut
 	    	        si (estFeuille(noeud)) alors
 	    	            retourner noeud.etq;
@@ -145,9 +148,9 @@
 		    les arbres des classes sont implémentées dans un tableau.
 		    }
 		    \begin{itemize}
-			    \item \verb|find( el T ) : T| est la première fonction pertinente d'une classe-union. Cette fonction permet de trouver 
+			    \item \verb|trouver( el T ) : T| est la première fonction pertinente d'une classe-union. Cette fonction permet de trouver 
 	    	le représentant d'une classe. Elle prend en paramètre un élément $t$ et retourne le représentant de la classe à
-	    	laquelle appartient $t$.
+	    	laquelle appartient $el$.
 	    	L'algorithme de cette fonction est à la figure \ref{algo_find}. Pour des questions de d'optimisation, cette fonction
 	    	compresse les chemins de l'arbre, on obtient alors une complexité amortie en $\Theta(1)$.
 	    	
@@ -168,8 +171,7 @@
 	    	
 	    	\item \verb|union( el1 : T, el2 : T)| permet de faire l'union de deux classes. Son algorithme est disponible à la 
 	        figure \ref{algo_union}. Une telle fonction prend en paramètre deux éléments et va unir leurs deux classes.
-	        Sa complexité est de l'ordre de $\Theta(1)$. En effet, la fonction \textit{trouver} a une complexité en $\Theta(1)$,
-	        puis cette fonction ne fait que des affections.
+	        Sa complexité est de l'ordre de $\Theta(1)$.
 
 	    	\begin{figure}
 	    	    \begin{verbatim}
@@ -207,19 +209,21 @@
 		
 		%\subsection{Scanner de fichiers}
 	    	%\paragraph{}{paragraphe sans titre}
+	
+	\newpage
 		
 	\section{Résolution du problème}
 	
 		\paragraph{Quel bazar}{
 		Le problème que nous devons résoudre est le suivant : reformer les chapitres 
-		d'un livre en regroupant les pages de ce dernier si ils ont au moins $k$ même
+		d'un livre en regroupant les pages de ce dernier s'ils ont au moins $k$ même
 		mots du dictionnaire en commun. La difficulté ici est d'identifier les mots 
 		qui appartiennent au dictionnaire en lisant les pages puis de regrouper ces
-		pages suivant les $k$ mots en commun.
+		pages d'après les $k$ mots en commun.
 		}
 		
 		\subparagraph{}{
-		Concernant l'identification des mots uniques aux pages, nous en sommes pas
+		Concernant l'identification des mots uniques aux pages, nous ne nous en sommes pas
 		préoccupés, par manque de temps.
 		}
 	
@@ -230,94 +234,138 @@
 			Évidemment, une approche basique du problème consisterais à produire un algorithme (glouton) avec une complexité
 			exorbitante. Mais soyons plus intelligent et penchons nous sur des structures efficaces, comme celles présentées
 			dans la première partie de ce rapport. Tout d'abord pour les recherches des mots, en utilisant un arbre et non
-			un tableau, ou une autre structure de données linéaire de type file ou liste chaînée, on passe d'une complexité
-			en $\Theta(n)$ à $\Theta(\log(n))$, $n$ étant le nombre de mots dans le dictionnaire.
+			une structure de données linéaire, on passe d'une complexité en $\Theta(n)$ à un complexité
+			en $\Theta(\log(n))$, $n$ étant le nombre de mots dans le dictionnaire.
 			}
 			\paragraph{}{
 			Ensuite, pour les pages, au lieu de garder en mémoire l'intégralité de ces dernières, stockons 
-			uniquement les mots qu'elles ont en commun avec le dictionnaire. Après la même question revient, tableau
+			uniquement les mots qu'elles ont en commun avec le dictionnaire. La même question revient esnuite, structure linéaire
 			ou arbre ? Arbre ! Potentiellement, comme pour le dictionnaire, on va effectuer des recherches sur les mots des pages.
 			Et on peut estimer le nombre de telles recherches de l'ordre de $k \times n^{2}$. \\
-			En effet, on va obligatoirement chercher les $k$ mots dans le dictionnaire. En suite pour ces $k$ mots, on va comparer
-			les pages obligatoirement deux par deux. Donc avec $n$, le nombre de pages, on obtient $n^{2}$ comparaisons.
+			En effet, on va obligatoirement chercher les $k$ mots dans le dictionnaire. Ensuite pour ces $k$ mots, on va comparer
+			les pages obligatoirement deux à deux. Donc pour $n$ pages, on obtient $n^{2}$ comparaisons.
 			}
 
-		\subsection{Algorithme}
+		\subsection{Résolution}
 			\paragraph{}{
-			L'algorithme à la figure \ref{algo_main} correspond à l'algorithme qui résout le problème
-			de la réunion des pages par chapitre. On peut y détacher les grandes étapes suivantes :
+			L'algorithme à la figure \ref{algo_main} correspond à l'algorithme qui regroupe les
+			pages en chapitre, d'après les critères énoncés précédemment.On peut y extraire 
+			les grandes étapes suivantes :
 			\begin{enumerate}
 				\item Lecture du dictionnaire, stockage dans un AVL.
-				\item Pour chaque page, les parcourir rt identifier les mots qu'elle
+				\item Pour chaque page, parcourir la page et identifier les mots qu'elle
 				a en commun avec le dictionnaire, placer ses mots dans un AVL.
 				\item On place toutes les pages dans une classe-union.
 				\item Pour chaque page, on test combien de mots elle a en commun avec les autres.
-				Si elle en a au moins $k$, on réuni les classes des deux pages.
-				\item Enfin, on affiche la solution
+				Si elle en a au moins $k$, on réuni les deux pages (union de classes).
+				\item Enfin, on affiche la solution.
 			\end{enumerate} 
 		 	}
 		 	\paragraph{Complexité}{
 		 	Considérons que le dictionnaire est composé de $k$ mots. Il y a $n$ pages composées de
 		 	$q_{i}$ mots, $i$ étant l'identifiant de la page. \newline
-		 	La lecture des fichiers en entrée du programme ce fait en un temps linéaire.
+		 	La lecture des fichiers en entrée du programme ce fait en un temps linéaire, proportionnel aux
+		 	nombres des arguments et à la taille du dictionnaire et des pages. La construction de l'arbre
+		 	contenant le dictionnaire est alors en $\Theta(k)$. \newline
+		 	Ensuite, la construction des arbres des pages se fait en $\Theta(n \times q_{i} \times \log(k))$.
+		 	$\log(k)$ car on va chercher les mots dans le dictionnaire.
+		 	L'union et la recherche des pères dans la classe-union sont en $\Theta(1)$ grâce à la compression des
+		 	chemins notamment. Là où la complexité de notre algorithme est important c'est lorsqu'on compare les pages
+		 	pour reconstituer les chapitres. Des petites optimisation permettent de gagner du temps. Par exemple,
+		 	on ne va pas comparer la page avec elle même et on ne comparera pas deux pages qui sont déjà dans le
+		 	même chapitre.
+		 	} % todo
+		 	\paragraph{}{
+		 	La comparaison des pages deux à deux est donc en $\Theta(n^{2})$, ensuite l'accès à leur
+		 	dictionnaire est au plus en $k\log(k)$. On obtient alors $n^{2}( \sum_{1}^{n} k\log(k))$.
+		 	Étant donné qu'on cherche une majoration grossière, retenons que la complexité final de 
+		 	notre programme est en $\Theta(n^{2})$.
 		 	}
+		 	\paragraph{}{
+		 	Pour comparer, si nous avions utiliser des structures linéaires, nous aurions plutôt obtenu une
+		 	complexité de l'ordre de $\Theta(k \times n^{2})$. On a donc réussi à gagner d'un facteur $k$
+		 	en complexité.
+		 	}
+		 	
    			\begin{figure}
-	    	    \begin{verbatim}
-	    	    Algorithme principal
-	    	        entrées : k entier
-	    	                  dico ensemble de mots
-	    	                  pages ensemble d'ensembles de mots
-	    	        variables : k entier
-	    	                    dictionnaire AVL de chaîne
-	    	                    collection Vector de Pair(chaîne, AVL de chaîne)
-	    	                    classeUnion ClasseUnion de Pair(chaîne, AVL de chaîne)
-	    	                    pairA, pairB Pair(chaîne, AVL de chaîne)
-	    	    debut
-	    	        dictionnaire := AVL vide;
-	    	        collection := Vector de Pair(chaîne, AVL de chaîne) vide;
-	    	        
-	    	        pour chaque mot dans page faire
-	    	            dictionnaire.ajouter(mot);
-	    	        finpour
-	    	            
-	    	        pour chaque page dans pages faire
-	    	            pair := Pair(chaîne, AVL de chaîne) vide;
-	    	            pair.element_gauche := premier_mot(page);
-	    	            pair.element_droit := AVL vide;
-	    	            
-	    	            pour chaque mot dans page faire
-	    	                si (dictionnaire.contient(mot)) faire
-	    	                    pair.element_doit.ajouter(mot);
-	    	                finsi
-	    	            finpour
-	    	            
-	    	            collection.ajouter(pair);
-	    	        finpour
-	    	        
-	    	        classeUnion := ClasseUnion(collection);
-	    	        
-	    	        pour i de 0 à taille(collection) - 1 faire
-	    	          pairA := collection[i]
-	    	            
-	    	          pour j de 0 à taille(collection) - 1 faire
-	    	            pairB := collection[j]
-	    	            si ( (i != j)
-	    	               ET (classeUnion.trouver(pairA) != classeUnion.trouver(pairB))
-	    	               ET (pairA.element_droit.nbCommuns(pairB.element_droit) >= k))
-	    	                classeUnion.union(pairA, pairB);
-	    	            finsi
-	    	          finpour
-	    	        finpour
-	    	        afficher(classeUnion);
-	    	    fin
-	    	    \end{verbatim}
+	    	\begin{verbatim}
+  Algorithme principal
+      entrées : k entier,
+                dico ensemble de mots,
+                pages ensemble d'ensembles de mots
+      variables : k entier,
+                  dictionnaire AVL de chaînes,
+                  collection Vector de Pair(chaînes, AVL de chaîne),
+                  classeUnion ClasseUnion de Pair(chaînes, AVL de chaînes),
+                  pairA, pairB Pair(chaîne, AVL de chaînes)
+  debut
+      dictionnaire := AVL vide;
+      collection := Vector de Pair(chaîne, AVL de chaîne) vide;
+      
+      pour chaque mot dans page faire
+          dictionnaire.ajouter(mot);
+      finpour
+          
+      pour chaque page dans pages faire
+          pair := Pair(chaîne, AVL de chaîne) vide;
+          pair.element_gauche := premier_mot(page);
+          pair.element_droit := AVL vide;
+          
+          pour chaque mot dans page faire
+              si (dictionnaire.contient(mot)) faire
+                  pair.element_doit.ajouter(mot);
+              finsi
+          finpour
+          
+          collection.ajouter(pair);
+      finpour
+      
+      classeUnion := ClasseUnion(collection);
+      
+      pour i de 0 à taille(collection) - 1 faire
+        pairA := collection[i]
+          
+        pour j de 0 à taille(collection) - 1 faire
+          pairB := collection[j]
+          si ( (i != j)
+             ET (classeUnion.trouver(pairA) != classeUnion.trouver(pairB))
+             ET (pairA.element_droit.nbCommuns(pairB.element_droit) >= k))
+              classeUnion.union(pairA, pairB);
+          finsi
+        finpour
+      finpour
+      afficher(classeUnion);
+  fin
+	    	\end{verbatim}
    	    	\caption{Algorithme principal \label{algo_main}}
    	    	\end{figure}
+	
+	\newpage
 			
 	\section*{Conclusion}
 		\paragraph{}{
-		Pour conclure, notre algorithme nous a permis de fournir une solution plutôt efficace, tout de
-		même de l'ordre de $\Theta(X)$.
+		Pour conclure, notre algorithme permet de fournir une solution plutôt efficace, tout de
+		même de l'ordre de $\Theta(n^{2})$. Ce qui n'est pas révolutionnaire, donc pas de publication
+		pour le moment. D'autre part nous n'avons pas répondu à la seconde question qui était de trouver les
+		mots uniquement présent dans un chapitre. Mais nous pouvons donner un début de réponse. 
+		}
+		
+			\subparagraph{Les propres aux pages}{
+			Dans notre programme, pour chaque page stockons également dans une arbre AVL tous
+			les mots de la page (et qui ne sont pas dans le dictionnaire, car ils sont forcément
+			dans les autres chapitres, à priori). En suite, lorsqu'on compare les pages deux à 
+			deux, supprimons des mots de la pages les mots de l'autre page. Ainsi, après avoir 
+			comparé toutes nos pages, les AVLs qui contenaient tous les mots de la pages, ne
+			contiennent plus que les mots uniquement présent dans cette dernière et non dans les
+			autres aussi. Un tel algorithme aurait, une complexité de l'ordre de 
+			$\Theta(n^2 \times \log(q_i))$.
+			}
+		
+		\paragraph{}{
+		Enfin, ce projet a été un bon moyen de nous frotter à des problèmes difficiles qui peuvent
+		se résoudre plus aisément grâce aux structures de données vu en cours. De plus, les 
+		implémentées nous à permis de nous familiariser avec, en particulier les arbres AVL et
+		les classes-union.
 		}
 		
 \end{document}
