@@ -54,7 +54,8 @@ public class ABRTree<T extends Comparable> {
 		if(root == null) {
 			return "";
 		} else {
-			return root.toString();
+			String res = root.toString();
+			return res.substring(1, res.length());
 		}
 	}
 	

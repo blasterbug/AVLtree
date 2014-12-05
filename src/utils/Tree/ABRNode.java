@@ -151,8 +151,8 @@ public class ABRNode<T extends Comparable> {
 			if( null != leftSon ){
 				toReturn += leftSon.toString();
 			}
-			
-			toReturn += "," +tag.toString()+ "(" + computeHeight() + ")";
+
+			toReturn += ", " +tag.toString(); //+ "(" + computeHeight() + ")";
 			
 			if( null != rightSon ){
 				toReturn += rightSon.toString();

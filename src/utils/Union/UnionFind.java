@@ -127,7 +127,7 @@ public class UnionFind<T>
         String ret = "";
         for ( int i = 0 ; i < fathers.size() ; i++ )
         {
-            ret += fathers.get(i) + "\n";
+            ret += "Chapitre n°" + fathers.get(i) + "\n";
             ret += i + " : [ " + tags.get(i) + " ]\n";
         }
         return ret;

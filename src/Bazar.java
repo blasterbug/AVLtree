@@ -127,6 +127,9 @@ public class Bazar {
 		}
 	}
 	// on affiche le contenu de classes-union
+	System.out.println("----------------------------------------");
+	System.out.println("-- Affichage des différents chapitres --");
+	System.out.println("----------------------------------------");
 	System.out.println(unionFind.toString());
 	
 		} else { // si on n'a pas le bon nombre d'arguments, on affiche une erreur
