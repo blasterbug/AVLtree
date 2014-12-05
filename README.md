@@ -10,6 +10,8 @@ If two pages have k same shared word, then they are in the same chapter.
 #### build and run
 
 Assuming you're ruuning an unix system with java, javac and make installed.
+
     $ make
+    
     $ java -jar Bzar.jar <k> <dictionnary> <page1> <page2W ...
 
